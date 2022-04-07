@@ -1,14 +1,13 @@
 <?php
-$conn=mysqli_connect ("localhost","root","") or die ("koneksi gagal");
-mysqli_select_db($conn,"warungku");
-
 session_start();
-
-error_reporting(0);
-
-if (isset($_SESSION['is_login'])) {
-    header("Location: welcome.php");
+// Jika bisa login maka ke index.php
+if (isset($_SESSION['login'])) {
+    header('location:index');
+    exit;
 }
+
+// Memanggil atau membutuhkan file function.php
+require 'function.php';
 
 if (isset($_POST['regis'])) {
     $name = $_POST["name"];
@@ -38,19 +37,24 @@ if (isset($_POST['regis'])) {
 if (isset($_POST['login'])) {
 	$email = $_POST['emaillogin'];
 	$password = md5($_POST['Passwordlogin']);
-	$sql = "select * from users where email='$email' AND password='$password'";
-	$result = mysqli_query($conn, $sql);
-	if ($result->num_rows > 0) {
+    $result = mysqli_query($koneksi, "SELECT * FROM users WHERE email='$email' AND password='$password'");
+	$cek = mysqli_num_rows($result);
+    if ($cek > 0) {
 		$row = mysqli_fetch_assoc($result);
+        $_SESSION['login'] = true;
 		$_SESSION['name'] = $row['name'];
-		header("Location: welcome.php");
+        $level=$row['level'];
+        if($level == 0){
+            header("Location: dagangan");
+        }
+        else{
+            header("Location: index");
+        }
+		
 	} else {
 		echo "<script>alert('Woops! Email Atau Password anda Salah.')</script>";
 	}
 }
-
-
-
 
 ?>
 <html>
@@ -66,7 +70,7 @@ if (isset($_POST['login'])) {
         <div class="loginBox" id="login-form">
             <h1>Warung<span>Ku</span></h1>
             <h5>Sign in here</h5>
-            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+            <form action="" method="post">
                 <div class="inputBox"> 
                     <input id="email" type="text" name="emaillogin" placeholder="E-mail" required> 
                     <input id="pass" type="password" name="Passwordlogin" placeholder="Password" required> 
@@ -83,7 +87,7 @@ if (isset($_POST['login'])) {
         <div class="RegisBox" id="register-form">
             <h1>Warung<span>Ku</span></h1>
             <h5>Sign Up here</h5>
-            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+            <form action="" method="post">
                 <div class="inputBox"> 
                     <input id="name" type="text" name="name" placeholder="Name" required> 
                     <input id="email" type="text" name="email" placeholder="email" required> 

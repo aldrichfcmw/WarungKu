@@ -1,11 +1,35 @@
 <?php
-    //connect to the database
-    $db= mysqli_connect('localhost','root','','warungku');
+    session_start();
+    // Jika tidak bisa login maka balik ke login.php
+    // jika masuk ke halaman ini melalui url, maka langsung menuju halaman login
+    if (!isset($_SESSION['login'])) {
+        header('location:login');
+        exit;
+    }
+
+    // Memanggil atau membutuhkan file function.php
+    require 'function.php';
+
+    // Menampilkan semua data dari table siswa berdasarkan nis secara Descending
+    $dagangan = query("SELECT * FROM dagangan ORDER BY id_barang DESC");
+
+    
     // delete task
     if (isset($_GET['del_item'])){
-        $id = $_GET['del_item'];
-        mysqli_query($db, "DELETE FROM dagangan WHERE id='$id'");
-        header('location: dagangan.php');
+        $id_barang = $_GET['del_item'];
+        mysqli_query($db, "DELETE FROM dagangan WHERE id_barang='$id_barang'");
+        // Jika fungsi hapus lebih dari 0/data terhapus, maka munculkan alert dibawah
+        if (hapus($id_barang) > 0) {
+            echo "<script>
+                        alert('Data berhasil dihapus!');
+                        document.location.href = 'dagangan.php';
+                    </script>";
+        } else {
+            // Jika fungsi hapus dibawah dari 0/data tidak terhapus, maka munculkan alert dibawah
+            echo "<script>
+                    alert('Data gagal dihapus!');
+                </script>";
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -43,6 +67,9 @@
                     <a href="" onclick="return confirm('Hapus semua barang?')"  class="btn btn-danger btn-sm btn-flat"> 
                         <i class="fa fa-trash"></i> Hapus Semua Barang
                     </a>
+                    <a href="" onclick="return confirm('Export semua barang?')"  class="btn btn-success btn-sm btn-flat"> 
+                        <i class="fa fa-file-excel"></i> Export Semua Barang
+                    </a>
                 </p>
             </div>
             <div class="container-fluid">
@@ -58,15 +85,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $data = mysqli_query($db,"select * from dagangan");
-                    while($d = mysqli_fetch_array($data))
-                    {?>
+                    <?php foreach ($dagangan as $row) : ?>
                         <tr>
-                            <td><?php echo $d['id_kategori']; ?></td>
-                            <td><?php echo $d['id_barang']; ?></td>
-                            <td><?php echo $d['nama_barang']; ?></td>
-                            <td><?php echo $d['jumlah_barang']; ?></td>
-                            <td><?php echo $d['harga_barang']; ?></td>
+                            <td><?= $row['id_kategori']; ?></td>
+                            <td><?= $row['id_barang']; ?></td>
+                            <td><?= $row['nama_barang']; ?></td>
+                            <td><?= $row['jumlah_barang']; ?></td>
+                            <td><?= $row['harga_barang']; ?></td>
                             <td>
                                 <a href="#" class="btn btn-sm btn-flat btn-warning">
                                 <i class='bx bx-edit-alt' ></i>
@@ -77,7 +102,7 @@
                                 </a>
                             </td>
                         </tr>
-                    <?php }?>
+                        <?php endforeach; ?>
                     </tbody>
                     <tfoot>
                         <tr>

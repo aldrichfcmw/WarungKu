@@ -26,7 +26,7 @@
                         <i class="fas fa-shopping-cart"></i>
                         <span>0</span>
                     </a>
-                    <a href="#" class="user">
+                    <a href="login" class="user">
                         <i class="fas fa-user"></i>
                     </a>
                 </div>

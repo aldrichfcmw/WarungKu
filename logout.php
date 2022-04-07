@@ -1,8 +1,8 @@
 <?php 
 session_start();
+$_SESSION = [];
 session_unset();
 session_destroy();
-setcookie('username', '', 0, '/');
-setcookie('nama', '', 0, '/');
-header('location:log.php');
+setcookie('name', '', 0, '/');
+header('location:index');
 ?>
