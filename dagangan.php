@@ -61,7 +61,7 @@
             </div>
             <div class="box-header" style="margin-top: 20px;margin-left: 2px">
                 <p>
-                    <a href="add.dagangan.php" class="btn  btn-sm btn-primary btn-flat">
+                    <a href="add-dagangan.php" class="btn  btn-sm btn-primary btn-flat">
                         <i class="fa fa-plus"></i> Tambah Barang
                     </a>
                     <a href="" onclick="return confirm('Hapus semua barang?')"  class="btn btn-danger btn-sm btn-flat"> 

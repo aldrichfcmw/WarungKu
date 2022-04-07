@@ -1,6 +1,34 @@
 <?php
-    //connect to the database
-    $db= mysqli_connect('localhost','root','','warungku');
+session_start();
+// Jika tidak bisa login maka balik ke login.php
+// jika masuk ke halaman ini melalui url, maka langsung menuju halaman login
+if (!isset($_SESSION['login'])) {
+    header('location:login.php');
+    exit;
+}
+
+// Memanggil atau membutuhkan file function.php
+require 'function.php';
+
+// Menampilkan semua data dari table siswa berdasarkan nis secara Descending
+$dagangan = query("SELECT * FROM kategori ORDER BY id_kategori");
+
+
+// Jika fungsi tambah lebih dari 0/data tersimpan, maka munculkan alert dibawah
+if (isset($_POST['simpan'])) {
+    if (tambah($_POST) > 0) {
+        echo "<script>
+                alert('Data Dagangan berhasil ditambahkan!');
+                document.location.href = 'dagangan';
+            </script>";
+    } else {
+        // Jika fungsi tambah dari 0/data tidak tersimpan, maka munculkan alert dibawah
+        echo "<script>
+                alert('Data Dagangan gagal ditambahkan!');
+            </script>";
+    }
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -73,22 +101,28 @@
                     <span class="text">Tambah Dagangan</span>
                 </div>
             </div>
-            <form action="" method="post">
             <div class="container-fluid" >
+            <form action="" method="post" enctype="multipart/form-data">
                 <div class="row mt-2">
+                
                     <div class="col-8">
                         <h4>Tipe Produk</h4>
                         <div class="form-group ml-4">
-                            <select class="form-control">
-                                <option>Default select</option>
+                            <select class="form-control" name="id_kategori">                            
+                                <option disabled selected value>Default select</option>
+                                <?php foreach ($dagangan as $row) : ?>
+                                <option value="<?= $row['id_kategori'];?>"><?= $row['id_kategori']; ?> - <?= $row['kategori']; ?></option>
+                                <?php endforeach; ?>
                             </select>
+                            <label class="mt-4" for="">Nama Produk</label>
+                                <input type="text" name="nama" class="form-control" required>                
                         </div>
                         <div class="form-group mt-4">
                             <h4>Informasi Produk</h4>
                             <div class="col">
                                 <label >Gambar Produk</label><br>
                                 <label class="imagepicker imagepicker-add thumbnail">
-                                <input type='file' id="imagepicker2" multiple>
+                                <input type='file' id="gambar" name="gambar" required>
                                 </label>
                             </div>
                         </div>
@@ -96,7 +130,7 @@
                             <div class="col">
                                 <div class="mb-3 ">
                                     <label for="validationTextarea">Deskripsi Produk</label>
-                                    <textarea class="form-control" id="validationTextarea" placeholder="Masukkan Deskripsi Produk" required></textarea>
+                                    <textarea class="form-control" id="validationTextarea" name="deskripsi" placeholder="Masukkan Deskripsi Produk" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -108,19 +142,19 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Rp.</span>
                                     </div>
-                                    <input type="text" class="form-control">
+                                    <input type="text" name="harga" class="form-control" required>
                                 </div>
                                 <label for="">Stok</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="jumlah" class="form-control" required>
                             </div>
                         </div>
-                        <div class="col text-align-center">
-                            <button type="button" class="btn btn-lg btn-primary btn-block">Buat Dagangan</button>
+                        <div class="col text-align-center mb-5">
+                            <button type="submit" class="btn btn-lg btn-primary btn-block" name="simpan">Buat Dagangan</button>
                         </div>
                     </div>
                 </div>
-            </div>
-            </form>
+                </form>
+            </div>         
         </div>
     </section>
     
