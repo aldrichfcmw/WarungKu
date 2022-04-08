@@ -11,18 +11,17 @@
     require 'function.php';
 
     // Menampilkan semua data dari table siswa berdasarkan nis secara Descending
-    $dagangan = query("SELECT * FROM dagangan ORDER BY id_barang DESC");
+    $dagangan = query("SELECT * FROM dagangan ORDER BY id_barang");
 
     
     // delete task
     if (isset($_GET['del_item'])){
         $id_barang = $_GET['del_item'];
-        mysqli_query($db, "DELETE FROM dagangan WHERE id_barang='$id_barang'");
         // Jika fungsi hapus lebih dari 0/data terhapus, maka munculkan alert dibawah
         if (hapus($id_barang) > 0) {
             echo "<script>
                         alert('Data berhasil dihapus!');
-                        document.location.href = 'dagangan.php';
+                        document.location.href = 'dagangan';
                     </script>";
         } else {
             // Jika fungsi hapus dibawah dari 0/data tidak terhapus, maka munculkan alert dibawah
@@ -61,7 +60,7 @@
             </div>
             <div class="box-header" style="margin-top: 20px;margin-left: 2px">
                 <p>
-                    <a href="add-dagangan.php" class="btn  btn-sm btn-primary btn-flat">
+                    <a href="add-dagangan" class="btn  btn-sm btn-primary btn-flat">
                         <i class="fa fa-plus"></i> Tambah Barang
                     </a>
                     <a href="" onclick="return confirm('Hapus semua barang?')"  class="btn btn-danger btn-sm btn-flat"> 
@@ -93,11 +92,11 @@
                             <td><?= $row['jumlah_barang']; ?></td>
                             <td><?= $row['harga_barang']; ?></td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-flat btn-warning">
+                                <a href="edit-dagangan?id_barang=<?= $row['id_barang']; ?>" class="btn btn-sm btn-flat btn-warning">
                                 <i class='bx bx-edit-alt' ></i>
                                 </a>
-                                <a href="todo-editor.php?del_task=<?php echo $d['id_barang']; ?>" 
-                                class="btn btn-sm btn-flat btn-danger" onclick="return confirm('Hapus barang <?php echo $d['nama_barang'];  ?>?')">
+                                <a href="dagangan?del_item=<?= $row['id_barang']; ?>" 
+                                class="btn btn-sm btn-flat btn-danger" onclick="return confirm('Hapus barang <?= $row['nama_barang']; ?>?')">
                                 <i class='bx bx-trash'></i>
                                 </a>
                             </td>

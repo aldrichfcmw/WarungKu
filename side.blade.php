@@ -6,8 +6,8 @@
                 </span>
 
                 <div class="text logo-text">
-                    <span class="name">Codinglab</span>
-                    <span class="profession">Web developer</span>
+                    <span class="name"><?php echo $_SESSION['name'];?></span>
+                    <span class="profession">Dashboard Admin</span>
                 </div>
             </div>
 
@@ -25,37 +25,23 @@
 
                 <ul class="menu-links">
                     <li class="  ">
-                        <a href="#">
-                            <i class='bx bx-home-alt icon' ></i>
-                            <span class="text nav-text">Dashboard</span>
+                        <a href="index">
+                            <i class='bx bxs-home icon' ></i>
+                            <span class="text nav-text">Home</span>
                         </a>
                     </li>
 
                     <li class="  ">
-                        <a href="#">
-                            <i class='bx bx-bar-chart-alt-2 icon' ></i>
-                            <span class="text nav-text">Revenue</span>
+                        <a href="dagangan">
+                            <i class='bx bxs-data icon' ></i>
+                            <span class="text nav-text">Produk</span>
                         </a>
                     </li>
 
                     <li class="  ">
-                        <a href="#">
-                            <i class='bx bx-bell icon'></i>
-                            <span class="text nav-text">Notifications</span>
-                        </a>
-                    </li>
-
-                    <li class="  ">
-                        <a href="#">
-                            <i class='bx bx-pie-chart-alt icon' ></i>
-                            <span class="text nav-text">Analytics</span>
-                        </a>
-                    </li>
-
-                    <li class="  ">
-                        <a href="#">
-                            <i class='bx bx-heart icon' ></i>
-                            <span class="text nav-text">Likes</span>
+                        <a href="add-dagangan">
+                            <i class='bx bxs-file-plus icon'></i>
+                            <span class="text nav-text">Add Produk</span>
                         </a>
                     </li>
 

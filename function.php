@@ -25,8 +25,21 @@ function query($query)
 function tambah($data)
 {
     global $koneksi;
-    $id_barang = nilai();
     $id_kategori = $data['id_kategori'];
+    $pilih = mysqli_query($koneksi, "SELECT * FROM dagangan where id_kategori=$id_kategori order by id_kategori DESC LIMIT 1");
+    $nilai = mysqli_fetch_array($pilih);
+    $jumlah =mysqli_num_rows($pilih);
+    if($jumlah > 0){
+        $a = $nilai['id_barang'];
+        $b = 1;
+        $id= $a + $b;
+    } else{
+        $a = $id_kategori;
+        $b = 1;
+        $id = "$a$b";
+    }
+    // echo "<script>alert('$a $b $id')</script>"; 
+    $id_barang = $id; 
     $nama_barang = htmlspecialchars($data['nama']);
     $deskripsi_barang = htmlspecialchars($data['deskripsi']);
     $jumlah_barang = $data['jumlah'];
@@ -37,27 +50,22 @@ function tambah($data)
         return false;
     }
 
-    $sql = "INSERT INTO dagangan VALUES ('$id_barang','$id_kategori','$nama_barang','$gambar','$deksripsi_barang','$jumlah_barang','$harga_barang')";
+    $sql = "INSERT INTO dagangan VALUES ('$id_barang','$id_kategori','$nama_barang','$gambar','$deskripsi_barang','$jumlah_barang','$harga_barang')";
 
     mysqli_query($koneksi, $sql);
 
     return mysqli_affected_rows($koneksi);
 }
 
-function nilai()
-{
-    global $koneksi;
-
-    $nomor = query($koneksi,"SELECT * FROM dagangan WHERE id_kategori IN (SELECT MAX(id_barang) FROM dagangan)");
-    $id = "$nomor+1";
-    return $id;
-}
 
 // Membuat fungsi hapus
 function hapus($id_barang)
 {
     global $koneksi;
-
+    $pilih = mysqli_query($koneksi, "SELECT * FROM dagangan WHERE id_barang= $id_barang");
+    $datafoto = mysqli_fetch_array($pilih);
+    $foto = $datafoto['gambar_barang'];
+    unlink("asset/images/produk/".$foto);
     mysqli_query($koneksi, "DELETE FROM dagangan WHERE id_barang = $id_barang");
     return mysqli_affected_rows($koneksi);
 }
@@ -67,12 +75,12 @@ function ubah($data)
 {
     global $koneksi;
 
-    $id_barang = htmlspecialchars($data['id']);
-    $id_kategori = htmlspecialchars($data['id_kategori']);
+    $id_kategori = $data['id_kt'];
+    $id_barang = $data['id_br'];
     $nama_barang = htmlspecialchars($data['nama']);
-    $jumlah_barang = htmlspecialchars($data['jumlah']);
-    $harga_barang = htmlspecialchars($data['harga']);
-
+    $deskripsi_barang = htmlspecialchars($data['deskripsi']);
+    $jumlah_barang = $data['jumlah'];
+    $harga_barang = $data['harga'];
     $gambarLama = $data['gambarLama'];
 
     if ($_FILES['gambar']['error'] === 4) {
@@ -80,8 +88,9 @@ function ubah($data)
     } else {
         $gambar = upload();
     }
+    unlink("asset/images/produk/".$gambarLama);
 
-    $sql = "UPDATE dagangan SET id_kategori = '$id_kategori', nama_barang = '$nama_barang', jumlah_barang = '$jumlah_barang', jurusan = '$jurusan', harga_barang = '$harga_barang', gambar_dagangan = '$gambar' WHERE id_barang = '$id_barang'";
+    $sql = "UPDATE dagangan SET nama_barang = '$nama_barang', gambar_barang = '$gambar', deskripsi_barang = '$deskripsi_barang', jumlah_barang = '$jumlah_barang', harga_barang = '$harga_barang' WHERE id_barang = $id_barang";
 
     mysqli_query($koneksi, $sql);
 
@@ -126,7 +135,7 @@ function upload()
     $namaFileBaru .= $ext;
 
     // memindahkan file ke dalam folde img dengan nama baru
-    move_uploaded_file($tmpName, 'asset/images/produk' . $namaFileBaru);
+    move_uploaded_file($tmpName, 'asset/images/produk/' . $namaFileBaru);
 
     return $namaFileBaru;
 }

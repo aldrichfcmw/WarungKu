@@ -1,3 +1,9 @@
+<?php
+    require 'function.php';
+    // Menampilkan semua data dari table siswa berdasarkan nis secara Descending
+    $kategori = query("SELECT * FROM kategori ORDER BY id_kategori");
+    
+?>  
 <html>
     <head>
         <meta charset="utf-8">
@@ -14,7 +20,7 @@
     <body>
         <header>
             <nav class="navbar bg-light navbar-expand-lg justify-content-between" id="navbar_top">
-                <a class="navbar-brand logo" href="index.html">Warung<span>Ku</span></a>
+                <a class="navbar-brand logo" href="index">Warung<span>Ku</span></a>
                 <div class="right-nav">
                     <!--like----->
                     <a href="#" class="like">
@@ -33,7 +39,6 @@
             </nav> <!-- navbar -->          
         </header>
 
-        <div class=""></div>
         <div class="container">
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
                 <div class="carousel-inner">
@@ -62,75 +67,43 @@
                     <span>All</span>
                 </div>
                 <div class="category-container">
-                    
+                    <?php foreach ($kategori as $row) : ?>
                     <!-- DaftarBox -->
                     <div class="box-item">
                     <a href="#" class="category-box text-decoration-none shadow">
-                        <img src="asset/images/icon/apps.svg" alt="">
-                        <span>Application</span>
+                        <img src="asset/images/icon/<?= $row['icon']; ?>" alt="">
+                        <span><?= $row['kategori']; ?></span>
                     </a>
                     </div>
-                    
-                    <!-- DaftarBox -->
-                    <a href="#" class="category-box text-decoration-none shadow">
-                        <img src="asset/images/icon/console.svg" alt="">
-                        <span>Console Game</span>
-                    </a>
-    
-                    <!-- DaftarBox -->
-                    <a href="#" class="category-box text-decoration-none shadow">
-                        <img src="asset/images/icon/mobile.svg" alt="">
-                        <span>Mobile Game</span>
-                    </a>
-                    
-                    <!-- DaftarBox -->
-                    <a href="#" class="category-box text-decoration-none shadow">
-                        <img src="asset/images/icon/pc.svg" alt="">
-                        <span>PC Game</span>
-                    </a> 
-                    
-                    <!-- DaftarBox -->
-                    <a href="#" class="category-box text-decoration-none shadow">
-                        <img src="asset/images/icon/pulsa.svg" alt="">
-                        <span>Pulsa & Utilitas</span>
-                    </a> 
-    
-                    <!-- DaftarBox -->
-                    <a href="#" class="category-box text-decoration-none shadow">
-                        <img src="asset/images/icon/streaming.svg" alt="">
-                        <span>Streaming Apps</span>
-                    </a>
-    
-                    <!-- DaftarBox -->
-                    <a href="#" class="category-box text-decoration-none shadow">
-                        <img src="asset/images/icon/voucher.svg" alt="">
-                        <span>Voucher</span>
-                    </a>
-                
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
-
-        <section id="popular-product">
-            <div class="container">
-                <div class="product-heading">
-                    <h3>Popular Product</h3>
-                    <span>All</span>
-                </div>
+        <div class="container" >
+            <div class="row mb-4">
+                <h2>Product List</h2>
+            </div>
             
-            <div class="product-container">
-                <!--box---------->
-                <div class="product-box">
-                    <img alt="apple" src="asset/images/produk/ybpfw7aku7ulr5wtvkecc.jpg">
-                    <div class="product-detail">
-                        <strong>DemonFall</strong>
-                        <span class="quantity">Roblox</span>
-                        <span class="price">Rp. 6000</span>
+            <div class="row row-cols-1 row-cols-md-3">
+            <?php 
+                $dagangan = mysqli_query($koneksi,"select * from dagangan order by nama_barang");
+                while ($barang = mysqli_fetch_array($dagangan)) {
+            ?>
+                <div class="col mb-4 d-flex">
+                    <div class="card" >
+                    <img src="asset/images/produk/<?= $barang['gambar_barang']; ?>" class="card-img-top" alt="...">
+                    <div class="card-body" >
+                        <h4 class="card-title"><?= $barang['nama_barang']; ?></h4>
+                        <h6 class="card-text">Rp. <?= $barang['harga_barang']; ?></h6>
+                        <p class="card-text">Stok <?= $barang['jumlah_barang']; ?></p>
+                    </div>
                     </div>
                 </div>
+                <?php } ?>
             </div>
-        </div>
-        </section>
+
+        </div>                
+        
 
 
 
