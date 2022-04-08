@@ -60,8 +60,8 @@
             </div>
         </div>
                
-        <section id="category">
-            <div class="container">
+
+            <div class="container mt-4">
                 <div class="category-head">
                     <h2>Category</h2>
                     <span>All</span>
@@ -69,7 +69,7 @@
                 <div class="category-container">
                     <?php foreach ($kategori as $row) : ?>
                     <!-- DaftarBox -->
-                    <div class="box-item">
+                    <div class="box-item mb-4">
                     <a href="#" class="category-box text-decoration-none shadow">
                         <img src="asset/images/icon/<?= $row['icon']; ?>" alt="">
                         <span><?= $row['kategori']; ?></span>
@@ -78,10 +78,13 @@
                     <?php endforeach; ?>
                 </div>
             </div>
-        </section>
-        <div class="container" >
+
+
+        <div class="container mt-4" >
             <div class="row mb-4">
-                <h2>Product List</h2>
+            <div class="category-head">
+                    <h2>Product</h2>
+                </div>
             </div>
             
             <div class="row row-cols-1 row-cols-md-3">
