@@ -1,6 +1,7 @@
 <?php
 // Koneksi Database
 $koneksi = mysqli_connect("localhost", "root", "", "warungku");
+$home="index";
 
 // membuat fungsi query dalam bentuk array
 function query($query)

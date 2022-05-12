@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.9.7
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 08 Apr 2022 pada 11.10
--- Versi server: 10.4.16-MariaDB
--- Versi PHP: 7.4.12
+-- Host: localhost:3306
+-- Waktu pembuatan: 11 Bulan Mei 2022 pada 21.18
+-- Versi server: 10.3.34-MariaDB
+-- Versi PHP: 7.3.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `warungku`
+-- Database: `mytelkom_warungku`
 --
 
 -- --------------------------------------------------------
@@ -46,7 +47,7 @@ INSERT INTO `dagangan` (`id_barang`, `id_kategori`, `nama_barang`, `gambar_baran
 (1221, 122, 'PSN Rp 200.000', '624ff85a1a4f2.jpeg', 'Cepat', 10, 198000),
 (1231, 123, 'Robux 6000 fall', '624fe2ac05a01.jpg', 'Cepat', 100, 6000),
 (1241, 124, 'Genshin 60 Cristal', '624fe37d59a04.jpeg', 'Murah', 15, 11000),
-(1242, 124, 'Valorant', '624fef2188d75.jpeg', 'asdwasdwa', 15, 2500),
+(1242, 124, 'Valorant', '624fef2188d75.jpeg', 'asdwasdwa', 10, 2500),
 (1251, 125, 'By.U 3 Gb', '624ff9143563d.png', 'Termurah', 5, 14000),
 (1271, 127, 'Steam IDR 60000', '624fe3b69713e.jpeg', 'Murah', 5, 60000);
 
@@ -70,7 +71,7 @@ INSERT INTO `kategori` (`id_kategori`, `icon`, `kategori`) VALUES
 (121, 'apps.svg', 'Aplikasi'),
 (122, 'console.svg', 'Console Game'),
 (123, 'mobile.svg', 'Mobile Game'),
-(124, 'pc.svf', 'PC Game'),
+(124, 'pc.svg', 'PC Game'),
 (125, 'pulsa.svg', 'Pulsa & Utilitas'),
 (126, 'streaming.svg', 'Streaming Apps'),
 (127, 'voucher.svg', 'Voucher');
@@ -95,7 +96,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `foto`) VALUES
-(1, 0, 'Admin', 'admin@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', ''),
+(1, 0, 'Admin', 'admin@gmail.com', '7810ccd41bf26faaa2c4e1f20db70a71', ''),
 (2, 1, 'Aldrich FCMW', 'aldrichmuktiwibiwo@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '');
 
 --
