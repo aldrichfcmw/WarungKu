@@ -1,5 +1,5 @@
 <?php
-session_start();
+  session_start();
     require 'function.php';
     // Menampilkan semua data dari table siswa berdasarkan nis secara Descending
     $kategori = query("SELECT * FROM kategori ORDER BY id_kategori");
