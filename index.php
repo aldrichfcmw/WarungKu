@@ -77,7 +77,7 @@
                     aria-expanded="false"
                   >
                     <img
-                      src="asset/images/foto/fotolaki.png"
+                      src="asset/images/profile/fotolaki.png"
                       class="rounded-circle"
                       height="25"
                       alt="Black and White Portrait of a Man"
