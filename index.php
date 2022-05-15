@@ -3,6 +3,7 @@
     require 'function.php';
     // Menampilkan semua data dari table siswa berdasarkan nis secara Descending
     $kategori = query("SELECT * FROM kategori ORDER BY id_kategori");
+    $admin=0;
 ?>  
 <!DOCTYPE html>
 <html lang="en">
@@ -87,26 +88,15 @@
                       <li>
                         <a class="dropdown-item" href="login">Login</a>
                       </li>
-                    <?php elseif(isset($_SESSION['level']) == 0):?>
+                    <?php else :?>
                       <li>
                         <a class="dropdown-item disabled" href="#"><?php echo $_SESSION['name'];?></a>
                       </li>
-                      <li>
-                        <a class="dropdown-item" href="dagangan">Dashboard</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">My profile</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">Settings</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="logout">Logout</a>
-                      </li>
-                    <?php else:?>
-                      <li>
-                        <a class="dropdown-item disabled" href="#"><?php echo $_SESSION['name'];?></a>
-                      </li>
+                      <?php if(isset($_SESSION['level']) == $admin){?>
+                        <li>
+                          <a class="dropdown-item" href="dagangan">Dashboard</a>
+                        </li>
+                      <?php } ?>
                       <li>
                         <a class="dropdown-item" href="#">My profile</a>
                       </li>
