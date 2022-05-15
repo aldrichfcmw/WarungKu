@@ -43,6 +43,7 @@ if (isset($_POST['login'])) {
 		$row = mysqli_fetch_assoc($result);
         $_SESSION['login'] = true;
 		$_SESSION['name'] = $row['name'];
+        $_SESSION['level'] = $row['level'];
         $level=$row['level'];
         if($level == 0){
             header("Location: dagangan");
