@@ -13,7 +13,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>WarungKu</title>
     <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="asset/images/icon/icon WK.png" type="image/png">
+    <link rel="shortcut icon" href="asset/images/icon/Icon WK.png" type="image/png">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <!-- Google Fonts Roboto -->
