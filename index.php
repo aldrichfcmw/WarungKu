@@ -89,20 +89,21 @@ session_start();
                         <a class="dropdown-item" href="login">Login</a>
                       </li>
                     <?php else :?>
-                      <li>
-                        <a class="dropdown-item" href="#">My profile</a>
-                      </li>
-                      <?php if(isset($_SESSION['level'])==0):?>
+                      <?php if(isset($_SESSION['level']) == 0):?>
                         <li>
                           <a class="dropdown-item" href="dagangan">Dashboard</a>
                         </li>
                       <?php endif;?>
+                      <li>
+                        <a class="dropdown-item" href="#">My profile</a>
+                      </li>
                       <li>
                         <a class="dropdown-item" href="#">Settings</a>
                       </li>
                       <li>
                         <a class="dropdown-item" href="logout">Logout</a>
                       </li>
+                      
                     <?php endif; ?>
                       
                   </ul>
