@@ -92,7 +92,7 @@
                       <li>
                         <a class="dropdown-item disabled" href="#"><?php echo $_SESSION['name'];?></a>
                       </li>
-                      <?php if(isset($_SESSION['level']) == $admin){?>
+                      <?php if($_SESSION['level'] == $admin){?>
                         <li>
                           <a class="dropdown-item" href="dagangan">Dashboard</a>
                         </li>
