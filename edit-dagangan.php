@@ -49,6 +49,8 @@ $id_br=$dagangan['id_barang'];
     <meta name="author" content="">
 
     <title>WK Admin - Edit Product</title>
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="asset/images/icon/icon WK.png" type="image/png">
 
     <!----===== Boxicons CSS ===== -->
     <link href="asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

@@ -43,6 +43,8 @@ if (isset($_POST['simpan'])) {
     <meta name="author" content="">
 
     <title>WK Admin - Add Product</title>
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="asset/images/icon/icon WK.png" type="image/png">
 
     <!----===== Boxicons CSS ===== -->
     <link href="asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

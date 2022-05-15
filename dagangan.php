@@ -22,7 +22,9 @@ require 'function.php';
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>WK Admin - Dashboard</title>
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="asset/images/icon/icon WK.png" type="image/png">
 
     <!-- Custom fonts for this template-->
     <link href="asset/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
