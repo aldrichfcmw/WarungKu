@@ -1,9 +1,5 @@
 ---
- 
 deployment:
- 
- tasks:
- 
- - export DEPLOYPATH=/home/mytelkom/repositories/WarungKu
- 
- - /usr/bin/rsync -Paz * $DEPLOYPATH --delete
+  tasks:
+    - export DEPLOYPATH=/home/mytelkom/repositories/WarungKu/
+    - /bin/cp -R images $DEPLOYPATH
