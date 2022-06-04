@@ -10,7 +10,7 @@
     // Memanggil atau membutuhkan file function.php
     require 'function.php';
 
-    // Menampilkan semua data dari table siswa berdasarkan nis secara Descending
+    // Menampilkan semua data dari table barang berdasarkan id
     $dagangan = query("SELECT * FROM dagangan ORDER BY id_barang");
 
     

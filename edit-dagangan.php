@@ -13,7 +13,7 @@ require 'function.php';
 // Mengambil data dari nis dengan fungsi get
 $id_barang = $_GET['id_barang'];
 
-// Menampilkan semua data dari table siswa berdasarkan nis secara Descending
+// Menampilkan semua data dari table barang berdasarkan id
 $dagangan = query("SELECT * FROM dagangan WHERE id_barang=$id_barang")[0];
 $idk=$dagangan['id_kategori'];
 $kate = mysqli_query($koneksi,"SELECT * FROM kategori WHERE id_kategori=$idk");

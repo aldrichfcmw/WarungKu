@@ -10,7 +10,7 @@ if (!isset($_SESSION['login'])) {
 // Memanggil atau membutuhkan file function.php
 require 'function.php';
 
-// Menampilkan semua data dari table siswa berdasarkan nis secara Descending
+// Menampilkan semua data dari table kategori berdasarkan id
 $dagangan = query("SELECT * FROM kategori ORDER BY id_kategori");
 
 
