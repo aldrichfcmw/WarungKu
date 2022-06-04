@@ -63,6 +63,13 @@
             <span>Export Table</span></a>
     </li>
 
+    <!-- Nav Item - Export Table -->
+    <li class="nav-item">
+        <a class="nav-link" href="history-dagangan">
+            <i class="fas fa-fw fa-history"></i>
+            <span>History Table</span></a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
