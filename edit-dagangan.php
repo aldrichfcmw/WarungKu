@@ -24,7 +24,7 @@ if (isset($_POST['rubah'])) {
     if (ubah($_POST) > 0) {
         echo "<script>
                 alert('Data Dagangan berhasil diubah!');
-                document.location.href = 'dagangan';
+                document.location.href = 'table-dagangan';
             </script>";
     } else {
         // Jika fungsi tambah dari 0/data tidak tersimpan, maka munculkan alert dibawah
@@ -74,7 +74,7 @@ $id_br=$dagangan['id_barang'];
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                <?php include 'navbar.blade.php';?>
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Edit Product</h1>
                     <p class="mb-2"></p>

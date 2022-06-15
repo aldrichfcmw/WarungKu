@@ -19,7 +19,7 @@ if (isset($_POST['simpan'])) {
     if (tambah($_POST) > 0) {
         echo "<script>
                 alert('Data Dagangan berhasil ditambahkan!');
-                document.location.href = 'dagangan';
+                document.location.href = 'table-dagangan';
             </script>";
     } else {
         // Jika fungsi tambah dari 0/data tidak tersimpan, maka munculkan alert dibawah
@@ -55,9 +55,7 @@ if (isset($_POST['simpan'])) {
     <!-- Custom styles for this template -->
     <link href="asset/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this page -->
-    <link href="asset/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body id="page-top">
@@ -69,7 +67,7 @@ if (isset($_POST['simpan'])) {
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                <?php include 'navbar.blade.php';?>
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Add Product</h1>
                     <p class="mb-2"></p>
@@ -77,8 +75,7 @@ if (isset($_POST['simpan'])) {
                     <!-- form -->
                     <form action="" method="post" enctype="multipart/form-data">
                         <div class="row">
-                        
-                            <div class="col-8">
+                            <div class="col col-md-8">
                                 <div class="form-group ml-4">
                                     <label class="mt-2" for="">Tipe Produk</label>
                                     <select class="form-control" name="id_kategori">                            
@@ -94,15 +91,10 @@ if (isset($_POST['simpan'])) {
                                 <h1 class="h3 mb-2 text-gray-800">Informasi Product</h1>
                                     <div class="col">
                                         <label >Gambar Produk</label><br>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">Upload</span>
-                                                </div>
-                                                <div class="custom-file">
-                                                    <input type="file" id="gambar" name="gambar" required class="custom-file-input" id="inputGroupFile01">
-                                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                                </div>
+                                            <div class="mb-3">
+                                                <input class="form-control" type="file" id="formFile" name="gambar">
                                             </div>
+                                            
                                         </label>
                                     </div>
                                 </div>

@@ -42,16 +42,16 @@ $total=array_sum($jumlah_bayar);
 
     <!-- Custom styles for this template-->
     <link href="asset/css/sb-admin-2.min.css" rel="stylesheet">
-
+    
 </head>
 
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
+    
     <?php include 'side.blade.php';?>
-
+    
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -61,7 +61,7 @@ $total=array_sum($jumlah_bayar);
                 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                <?php include 'navbar.blade.php';?>
                     
 
                     <!-- Content Row -->

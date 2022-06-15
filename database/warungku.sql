@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Waktu pembuatan: 11 Bulan Mei 2022 pada 21.18
--- Versi server: 10.3.34-MariaDB
--- Versi PHP: 7.3.33
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 10 Jun 2022 pada 05.22
+-- Versi server: 10.4.22-MariaDB
+-- Versi PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mytelkom_warungku`
+-- Database: `warungku`
 --
 
 -- --------------------------------------------------------
@@ -79,6 +78,29 @@ INSERT INTO `kategori` (`id_kategori`, `icon`, `kategori`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `riwayat_pembayaran`
+--
+
+CREATE TABLE `riwayat_pembayaran` (
+  `id_bayar` int(255) NOT NULL,
+  `list_barang` varchar(255) NOT NULL,
+  `jumlah_barang` int(255) NOT NULL,
+  `total_bayar` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `riwayat_pembayaran`
+--
+
+INSERT INTO `riwayat_pembayaran` (`id_bayar`, `list_barang`, `jumlah_barang`, `total_bayar`) VALUES
+(15912, 'Genshin 60 Cristal', 5, 55000),
+(15913, 'Robux 6000 fall', 7, 42000),
+(15914, 'Spotify FamPlan', 1, 17000),
+(15915, 'PSN Rp 200.000', 1, 198000);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `users`
 --
 
@@ -118,6 +140,12 @@ ALTER TABLE `kategori`
   ADD KEY `kategori` (`kategori`);
 
 --
+-- Indeks untuk tabel `riwayat_pembayaran`
+--
+ALTER TABLE `riwayat_pembayaran`
+  ADD PRIMARY KEY (`id_bayar`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -139,6 +167,12 @@ ALTER TABLE `dagangan`
 --
 ALTER TABLE `kategori`
   MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+
+--
+-- AUTO_INCREMENT untuk tabel `riwayat_pembayaran`
+--
+ALTER TABLE `riwayat_pembayaran`
+  MODIFY `id_bayar` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15916;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

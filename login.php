@@ -42,7 +42,9 @@ if (isset($_POST['login'])) {
     if ($cek > 0) {
 		$row = mysqli_fetch_assoc($result);
         $_SESSION['login'] = true;
+        $_SESSION['id'] = $row['id'];
 		$_SESSION['name'] = $row['name'];
+        $_SESSION['title'] = "WarungKu";
         $_SESSION['level'] = $row['level'];
         $level=$row['level'];
         if($level == 0){

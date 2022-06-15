@@ -58,6 +58,71 @@ function tambah($data)
     return mysqli_affected_rows($koneksi);
 }
 
+// Membuat fungsi tambah keranjang
+function add($id_barang)
+{
+    global $koneksi;
+     
+    $db = mysqli_query($koneksi, "SELECT * FROM dagangan where id_barang=$id_barang");
+    $pilih = mysqli_fetch_array($db);
+    $id_user=$_SESSION['id'];
+    // echo "<script>alert('$a $b $id')</script>";  
+    $nama_barang = $pilih['nama_barang'];
+    $jumlah_barang = 1;
+    $harga_barang = $pilih['harga_barang'];
+    $gambar=$pilih['gambar_barang'];
+    $id_keranjang="";
+    $sql = "INSERT INTO keranjang VALUES ('$id_keranjang','$id_user','$nama_barang','$jumlah_barang','$harga_barang','$gambar')";
+
+    mysqli_query($koneksi, $sql);
+
+    return mysqli_affected_rows($koneksi);
+}
+
+// Membuat fungsi tambah keranjang
+function delete($id_keranjang)
+{
+    global $koneksi;
+    mysqli_query($koneksi, "DELETE FROM keranjang WHERE id_keranjang = $id_keranjang");
+    return mysqli_affected_rows($koneksi);
+}
+
+// Membuat fungsi tambah
+function checkout($id)
+{
+    global $koneksi;
+    $pilih = mysqli_query($koneksi, "SELECT * FROM riwayat_pembayaran order by id_bayar DESC LIMIT 1");
+    $nilai = mysqli_fetch_array($pilih);
+    $jumlah =mysqli_num_rows($pilih);
+    if($jumlah > 0){
+        $a = $nilai['id_bayar'];
+        $b = 1;
+        $id2= $a + $b; 
+    }
+    // echo "<script>alert('$a $b $id2')</script>";
+    $id_barang = $id2; 
+    $pilih2 = mysqli_query($koneksi, "SELECT * FROM keranjang where id_user=$id");
+    $item = mysqli_fetch_array($pilih2);
+    $id_barang = $item['id_user'];
+    $list_barang = $item['barang'];
+    $jumlah_barang = $item['jumlah'];
+    $harga_barang = $item['harga'];
+
+
+    $sql = "INSERT INTO riwayat_pembayaran VALUES ('$id2','$list_barang','$jumlah_barang','$harga_barang')";
+
+    mysqli_query($koneksi, $sql);
+
+    return mysqli_affected_rows($koneksi); 
+}
+
+// Membuat fungsi Hapus setelah pembelian
+function deleted($id)
+{
+    global $koneksi;
+    mysqli_query($koneksi, "DELETE FROM keranjang WHERE id_user = $id");
+    return mysqli_affected_rows($koneksi);
+}
 
 // Membuat fungsi hapus
 function hapus($id_barang)

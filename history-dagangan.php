@@ -53,7 +53,7 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                <?php include 'navbar.blade.php';?>
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Tabel History</h1>
                     <p class="mb-4"></p>
