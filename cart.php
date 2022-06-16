@@ -61,12 +61,15 @@ if (isset($_GET['delete_item'])){
                 display: none;
             }
         }
+        .full{
+            height:100vh;
+        }
     </style>
 </head>
 
-<body id="page-top">
+<body id="page-top" class="full">
     <!-- Page Wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" class="full">
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
@@ -76,6 +79,7 @@ if (isset($_GET['delete_item'])){
                     
                     <!-- row -->
                     <div class="row justify-content-center">
+                        
                         <!-- navbar -->
                         <div class="col-6 col-xs-12">
                             <?php include "navbar.blade.php";?>

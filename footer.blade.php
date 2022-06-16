@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="sticky-footer bg-white">
+<footer class="sticky-footer bg-white shadow">
   <div class="container">
       <div class="copyright text-center my-auto">
           <span>Copyright &copy; WarungKu </span>
