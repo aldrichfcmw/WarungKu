@@ -81,7 +81,7 @@ if (isset($_GET['delete_item'])){
                     <div class="row justify-content-center">
                         
                         <!-- navbar -->
-                        <div class="col-6 col-xs-12">
+                        <div class="col-sm-6 col-md-6 col-xs-12 bg-white">
                             <?php include "navbar.blade.php";?>
 
                             <!-- DataTales Example -->
@@ -91,7 +91,7 @@ if (isset($_GET['delete_item'])){
                                         Data Cart Product
                                     </div>
                                     <div class="">
-                                        <a class=" btn btn-md btn-flat btn-primary" href="index">
+                                        <a class=" btn btn-md btn-flat btn-primary mb-1" href="index">
                                                 <i class="fa fa-undo fa-sm fa-fw mr-2 text-white-400"></i>
                                                 Kembali
                                             </a>
@@ -101,12 +101,12 @@ if (isset($_GET['delete_item'])){
                                             $jumlah = mysqli_num_rows($pilih);
                                         ?>
                                         <?php if($jumlah > 0):?>
-                                            <a class=" btn btn-md btn-flat btn-success" href="#" data-toggle="modal" data-target="#cartModal">
+                                            <a class=" btn btn-md btn-flat btn-success mb-1" href="#" data-toggle="modal" data-target="#cartModal">
                                                 <i class="fa fa-shopping-cart fa-sm fa-fw mr-2 text-white-400"></i>
                                                 Bayar
                                             </a>
                                         <?php else:  ?>
-                                            <a class=" btn btn-md btn-flat btn-secondary" href="#" data-toggle="modal" data-target="#cartModal2">
+                                            <a class=" btn btn-md btn-flat btn-secondary mb-1" href="#" data-toggle="modal" data-target="#cartModal2">
                                                 <i class="fa fa-shopping-cart fa-sm fa-fw mr-2 text-white-400"></i>
                                                 Bayar
                                             </a>    

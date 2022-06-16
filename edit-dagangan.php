@@ -63,6 +63,13 @@ $id_br=$dagangan['id_barang'];
 
     <!-- Custom styles for this page -->
     <link href="asset/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <style>
+        @media screen and (max-width: 800px){
+            .hide-on-mobile {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body id="page-top">
