@@ -9,7 +9,7 @@ $admin=0;
 require 'function.php';
 $id=$_SESSION['id'];
 $cart = query("SELECT * FROM keranjang where id_user=$id");
-
+    
 // delete task
 if (isset($_GET['delete_item'])){
     $id_keranjang = $_GET['delete_item'];
@@ -91,12 +91,22 @@ if (isset($_GET['delete_item'])){
                                                 <i class="fa fa-undo fa-sm fa-fw mr-2 text-white-400"></i>
                                                 Kembali
                                             </a>
-
-                                        <a class=" btn btn-md btn-flat btn-success" href="#" data-toggle="modal" data-target="#cartModal">
-                                            <i class="fa fa-shopping-cart fa-sm fa-fw mr-2 text-white-400"></i>
-                                            Bayar
-                                        </a>
-
+                                        <!-- Nav Item - Alerts -->
+                                        <?php 
+                                            $pilih = mysqli_query($koneksi,"SELECT * FROM keranjang where id_user=$id");
+                                            $jumlah = mysqli_num_rows($pilih);
+                                        ?>
+                                        <?php if($jumlah > 0):?>
+                                            <a class=" btn btn-md btn-flat btn-success" href="#" data-toggle="modal" data-target="#cartModal">
+                                                <i class="fa fa-shopping-cart fa-sm fa-fw mr-2 text-white-400"></i>
+                                                Bayar
+                                            </a>
+                                        <?php else:  ?>
+                                            <a class=" btn btn-md btn-flat btn-secondary" href="#" data-toggle="modal" data-target="#cartModal2">
+                                                <i class="fa fa-shopping-cart fa-sm fa-fw mr-2 text-white-400"></i>
+                                                Bayar
+                                            </a>    
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -195,6 +205,25 @@ if (isset($_GET['delete_item'])){
                         <i class="fa fa-shopping-cart fa-sm fa-fw mr-2 text-white-400"></i>
                         Bayar
                     </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- cart Modal-->
+    <div class="modal fade" id="cartModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Form Pembayaran</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Terjadi Kesalahan, tidak ada item yang dibayar</div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Kembali</button>
                 </div>
             </div>
         </div>

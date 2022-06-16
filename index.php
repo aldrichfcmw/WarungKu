@@ -73,7 +73,7 @@ if (isset($_GET['add_item'])){
                     <!-- row -->
                     <div class="row justify-content-center">
                         <!-- navbar -->
-                        <div class="col-6 col-xs-12">
+                        <div class="col-sm-6 col-md-12 col-xs-12">
                             <?php include "navbar.blade.php";?>
 
                             <!-- carousel -->

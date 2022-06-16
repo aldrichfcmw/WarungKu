@@ -1,6 +1,7 @@
 <?php
 // Koneksi Database
 $koneksi = mysqli_connect("localhost", "root", "", "warungku");
+//$koneksi = mysqli_connect('localhost','mytelkom_admin','telkomsanskuy','mytelkom_warungku');
 $home="index";
 
 // membuat fungsi query dalam bentuk array

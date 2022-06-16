@@ -84,29 +84,46 @@ if (isset($_GET['pay_item'])){
                         <!-- navbar -->
                         <div class="col-6 col-xs-12">
                             <?php include "navbar.blade.php";?>
-
                             <?php 
-                            $payment = mysqli_query($koneksi,"SELECT * FROM metode_pembayaran ORDER BY metode");
-                            while ($row = mysqli_fetch_array($payment)) {
-                        ?>
-                        <a class="" href="metodet?pay_item=<?= $id;?>" data-toggle="modal" data-target="#thankyouModal">
-                            <div class="col-sm-12 p-1">
-                                <div class="card border-left-primary shadow">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $row['metode']; ?></div>
+                                $pilih = mysqli_query($koneksi,"SELECT * FROM keranjang where id_user=$id");
+                                $jumlah = mysqli_num_rows($pilih);
+                            ?>
+                            <?php if($jumlah > 0):?>
+                                <?php 
+                                $payment = mysqli_query($koneksi,"SELECT * FROM metode_pembayaran ORDER BY metode");
+                                while ($row = mysqli_fetch_array($payment)) {
+                                ?>
+                                    <a class="" href="metodet?pay_item=<?= $id;?>" data-toggle="modal" data-target="#thankyouModal">
+                                        <div class="col-sm-12 p-1">
+                                            <div class="card border-left-primary shadow">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $row['metode']; ?></div>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <img src="asset/images/icon/<?= $row['gambar']; ?>" width="50px" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-auto">
-                                                <img src="asset/images/icon/<?= $row['gambar']; ?>" width="50px" alt="">
+                                        </div>
+                                    </a>
+                                <?php } ?>
+                            <?php else : ?>
+                                <div class="col-sm-12 p-1">
+                                    <div class="card border-left-danger shadow">
+                                        <div class="card-body">
+                                            <div class="row no-gutters text-center align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">No Item Added</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                        <?php } ?>
-                        <a class="mt-2 btn btn-md btn-block btn-primary" href="chart">
+                            <?php endif; ?>
+                        <a class="mt-2 btn btn-md btn-block btn-primary" href="cart">
                                                 <i class="fa fa-undo fa-sm fa-fw mr-2 text-white-400"></i>
                                                 Kembali
                         </a>

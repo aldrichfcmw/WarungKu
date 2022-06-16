@@ -21,7 +21,7 @@
         if (hapus($id_barang) > 0) {
             echo "<script>
                         alert('Data berhasil dihapus!');
-                        document.location.href = 'dagangan';
+                        document.location.href = 'table-dagangan';
                     </script>";
         } else {
             // Jika fungsi hapus dibawah dari 0/data tidak terhapus, maka munculkan alert dibawah
@@ -117,7 +117,7 @@
                                                 <a href="edit-dagangan?id_barang=<?= $row['id_barang']; ?>" class="btn btn-sm btn-flat btn-warning">
                                                 <i class='fas fa-fw fa-file' ></i>
                                                 </a>
-                                                <a href="dagangan?del_item=<?= $row['id_barang']; ?>" 
+                                                <a href="table-dagangan?del_item=<?= $row['id_barang']; ?>" 
                                                 class="btn btn-sm btn-flat btn-danger" onclick="return confirm('Hapus barang <?= $row['nama_barang']; ?>?')">
                                                 <i class='fas fa-fw fa-trash'></i>
                                                 </a>
