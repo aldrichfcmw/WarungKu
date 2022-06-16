@@ -62,11 +62,14 @@ $id_br=$dagangan['id_barang'];
     <link href="asset/css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="asset/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         @media screen and (max-width: 800px){
             .hide-on-mobile {
                 display: none;
+            }
+            .thumbnail-view{
+                width:100%;
             }
         }
     </style>
@@ -89,7 +92,7 @@ $id_br=$dagangan['id_barang'];
                     <!-- form -->
                     <form action="" method="post" enctype="multipart/form-data">
                         <div class="row mt-2">
-                            <div class="col-8">
+                        <div class="col col-md-8">
                                 <h4>Tipe Produk</h4>
                                 <div class="form-group ml-4">                                
                                     <input type="text" name="id_kt" class="form-control" value="<?php echo "$id_kt" ?>">
@@ -106,7 +109,9 @@ $id_br=$dagangan['id_barang'];
                                         <img src="asset/images/produk/<?= $dagangan['gambar_barang'];?>" class="thumbnail-view" alt=""><br>
                                         <input type="hidden" name="gambarLama" value="<?= $dagangan['gambar_barang']; ?>">
                                         <label >Gambar Produk</label><br>
-                                        <input class="form-control" type="file" id="formFile" name="gambar">
+                                        <div class="mb-3">
+                                                <input class="form-control" type="file" id="formFile" name="gambar">
+                                            </div>
                                     </div>
                                 </div>
                                 <div class="form-group mt-4">
