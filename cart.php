@@ -90,7 +90,7 @@ if (isset($_GET['delete_item'])){
                                     <div class="m-2 font-weight-bold text-primary">
                                         Data Cart Product
                                     </div>
-                                    <div class="">
+                                    <div class="text-right">
                                         <a class=" btn btn-md btn-flat btn-primary mb-1" href="index">
                                                 <i class="fa fa-undo fa-sm fa-fw mr-2 text-white-400"></i>
                                                 Kembali
