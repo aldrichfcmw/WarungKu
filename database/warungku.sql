@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Jun 2022 pada 05.22
+-- Waktu pembuatan: 16 Jun 2022 pada 06.16
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 8.1.2
 
@@ -78,6 +78,51 @@ INSERT INTO `kategori` (`id_kategori`, `icon`, `kategori`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `keranjang`
+--
+
+CREATE TABLE `keranjang` (
+  `id_keranjang` int(255) NOT NULL,
+  `id_user` int(255) NOT NULL,
+  `barang` varchar(255) NOT NULL,
+  `jumlah` int(255) NOT NULL,
+  `harga` int(255) NOT NULL,
+  `gambar_barang` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `metode_pembayaran`
+--
+
+CREATE TABLE `metode_pembayaran` (
+  `id_metode` int(255) NOT NULL,
+  `metode` varchar(255) NOT NULL,
+  `gambar` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `metode_pembayaran`
+--
+
+INSERT INTO `metode_pembayaran` (`id_metode`, `metode`, `gambar`) VALUES
+(91, 'Alfamart', 'alfamart.png'),
+(92, 'Bank Rakyat Indonesia', 'bank-bri.png'),
+(93, 'Bank Central Asia', 'bca.png'),
+(94, 'Bank Negara Idonesia', 'bni.png'),
+(95, 'Gopay', 'gopay.png'),
+(96, 'Indomaret', 'indomaret.png'),
+(97, 'Jenius', 'jenius-2.png'),
+(98, 'link Aja', 'logo-linkaja.png'),
+(99, 'Mandiri', 'logo-mandiri.png'),
+(100, 'OVO', 'ovo.png'),
+(101, 'QRIS', 'QRIS.png'),
+(102, 'ShopeePay', 'ShopeePay.png');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `riwayat_pembayaran`
 --
 
@@ -96,7 +141,13 @@ INSERT INTO `riwayat_pembayaran` (`id_bayar`, `list_barang`, `jumlah_barang`, `t
 (15912, 'Genshin 60 Cristal', 5, 55000),
 (15913, 'Robux 6000 fall', 7, 42000),
 (15914, 'Spotify FamPlan', 1, 17000),
-(15915, 'PSN Rp 200.000', 1, 198000);
+(15915, 'PSN Rp 200.000', 1, 198000),
+(15916, 'By.U 3 Gb', 1, 14000),
+(15917, '', 0, 0),
+(15918, 'By.U 3 Gb', 1, 14000),
+(15919, '', 0, 0),
+(15920, 'By.U 3 Gb', 1, 14000),
+(15921, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -140,6 +191,18 @@ ALTER TABLE `kategori`
   ADD KEY `kategori` (`kategori`);
 
 --
+-- Indeks untuk tabel `keranjang`
+--
+ALTER TABLE `keranjang`
+  ADD PRIMARY KEY (`id_keranjang`);
+
+--
+-- Indeks untuk tabel `metode_pembayaran`
+--
+ALTER TABLE `metode_pembayaran`
+  ADD PRIMARY KEY (`id_metode`);
+
+--
 -- Indeks untuk tabel `riwayat_pembayaran`
 --
 ALTER TABLE `riwayat_pembayaran`
@@ -169,10 +232,22 @@ ALTER TABLE `kategori`
   MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
+-- AUTO_INCREMENT untuk tabel `keranjang`
+--
+ALTER TABLE `keranjang`
+  MODIFY `id_keranjang` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT untuk tabel `metode_pembayaran`
+--
+ALTER TABLE `metode_pembayaran`
+  MODIFY `id_metode` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+
+--
 -- AUTO_INCREMENT untuk tabel `riwayat_pembayaran`
 --
 ALTER TABLE `riwayat_pembayaran`
-  MODIFY `id_bayar` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15916;
+  MODIFY `id_bayar` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15922;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

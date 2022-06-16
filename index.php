@@ -48,9 +48,9 @@ if (isset($_GET['add_item'])){
     <link href="asset/css/sb-admin-2.min.css" rel="stylesheet">
     
     <!-- Required Core Stylesheet -->
-    <link rel="stylesheet" href="node_modules/@glidejs/glide/dist/css/glide.core.min.css">
+    <link rel="stylesheet" href="asset/node_modules/@glidejs/glide/dist/css/glide.core.min.css">
     <!-- Optional Theme Stylesheet -->
-    <link rel="stylesheet" href="node_modules/@glidejs/glide/dist/css/glide.theme.min.css">
+    <link rel="stylesheet" href="asset/node_modules/@glidejs/glide/dist/css/glide.theme.min.css">
     <style>
         @media screen and (max-width: 800px){
             .hide-on-mobile {
