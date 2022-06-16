@@ -42,7 +42,13 @@ $total=array_sum($jumlah_bayar);
 
     <!-- Custom styles for this template-->
     <link href="asset/css/sb-admin-2.min.css" rel="stylesheet">
-    
+    <style>
+        @media screen and (max-width: 800px){
+            .hide-on-mobile {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -229,15 +235,7 @@ $total=array_sum($jumlah_bayar);
             </div>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+            <?php include "footer.blade.php" ?>
 
         </div>
         <!-- End of Content Wrapper -->
@@ -249,8 +247,6 @@ $total=array_sum($jumlah_bayar);
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-    
 
     <!-- Bootstrap core JavaScript-->
     <script src="asset/vendor/jquery/jquery.min.js"></script>
