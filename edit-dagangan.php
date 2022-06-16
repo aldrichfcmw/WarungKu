@@ -106,8 +106,7 @@ $id_br=$dagangan['id_barang'];
                                         <img src="asset/images/produk/<?= $dagangan['gambar_barang'];?>" class="thumbnail-view" alt=""><br>
                                         <input type="hidden" name="gambarLama" value="<?= $dagangan['gambar_barang']; ?>">
                                         <label >Gambar Produk</label><br>
-                                        <label class="imagepicker imagepicker-add thumbnail">
-                                        <input type='file' id="gambar" name="gambar">
+                                        <input class="form-control" type="file" id="formFile" name="gambar">
                                     </div>
                                 </div>
                                 <div class="form-group mt-4">
