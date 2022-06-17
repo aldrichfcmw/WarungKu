@@ -99,7 +99,7 @@ if (isset($_POST['login'])) {
                     <input id="pass" type="password" name="password" placeholder="Password" required>
                     <input id="pass" type="password" placeholder="Re-Password">
                 </div> 
-                <input type="submit" name="regis" value="regist" value="Regist">
+                <input type="submit" name="regis" value="Registrasi">
             </form> 
             <div class="forget">
                 <a href="#">already have an account?<br> </a>
