@@ -1,11 +1,11 @@
 <?php 
 session_start();
-if (isset($_SESSION['is_login'])) {
-    header("Location: welcome.php");
+if (isset($_SESSION['!login'])) {
+    header("Location: login");
 }
 if (isset($_POST['send'])) {
     $file = $_FILES["file"]["name"];
-    move_uploaded_file($_FILES['file']['tmp_name'], "images/".$_FILES['file']['name']);
+    move_uploaded_file($_FILES['file']['tmp_name'], "asset/images/profile/".$_FILES['file']['name']);
 }
 ?>
 <html>
@@ -14,7 +14,7 @@ if (isset($_POST['send'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>WarungKu</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-        <link rel="stylesheet" href="asset/log.css">
+        <link rel="stylesheet" href="asset/css/log.css">
     </head>
     <body>
         <div class="loginBox" id="login-form">

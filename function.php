@@ -23,6 +23,68 @@ function query($query)
     return $rows;
 }
 
+// Membuat fungsi tambah user
+function regis($data)
+{
+    global $koneksi;
+    $name = htmlspecialchars($data['name']);
+    $email = $data['email'];
+    $password = md5($data["password"]);
+    $repassword = md5($data["repassword"]);
+    $level=1;
+    $gambar="fotolaki.png"
+
+    if($password==$repassword){
+        $sql= "select * from users where email='$email'";
+        $hasil = mysqli_query($koneksi, $sql);
+        if(!$result ->num_rows > 0){
+            $sql = "INSERT INTO users (level,name,email,password,foto) values ('$level','$name','$email','$password','$gambar')";
+            $hasil = mysqli_query($koneksi, $sql);
+            if($hasil){
+                echo "<script>alert('Registrasi berhasil')</script>";  
+            } else {
+                echo "<script>alert('Terdapak Kesalahan')</script>"; 
+            }
+        } else {
+            echo "<script>alert('Email sudah dipakai')</script>"; 
+        }
+    } else {
+        echo "<script>alert('Password harus sama')</script>"; 
+    }
+    
+    return mysqli_affected_rows($koneksi);
+}
+
+function login($data)
+{
+    global $koneksi;
+    $email = $data['emaillogin'];
+    $password = md5($_POST["Passwordlogin"]);
+
+    $result = mysqli_query($koneksi, "SELECT * FROM users WHERE email='$email' AND password='$password'");
+	$cek = mysqli_num_rows($result);
+    if ($cek > 0) {
+		$row = mysqli_fetch_assoc($result);
+        $_SESSION['login'] = true;
+        $_SESSION['id'] = $row['id'];
+		$_SESSION['name'] = $row['name'];
+        $_SESSION['title'] = "WarungKu";
+        $_SESSION['level'] = $row['level'];
+        $level=$row['level'];
+        if($level == 0){
+            header("Location: dagangan");
+        }
+        else{
+            header("Location: index");
+        }
+		
+	} else {
+		echo "<script>alert('Woops! Email Atau Password anda Salah.')</script>";
+	}
+    
+    return mysqli_affected_rows($koneksi);
+}
+
 // Membuat fungsi tambah
 function tambah($data)
 {
@@ -227,6 +289,48 @@ function upload()
 
     // memindahkan file ke dalam folde img dengan nama baru
     move_uploaded_file($tmpName, 'asset/images/produk/' . $namaFileBaru);
+
+    return $namaFileBaru;
+}
+
+function profile()
+{
+    // Syarat
+    $namaFile = $_FILES['gambar']['name'];
+    $ukuranFile = $_FILES['gambar']['size'];
+    $error = $_FILES['gambar']['error'];
+    $tmpName = $_FILES['gambar']['tmp_name'];
+
+    // Jika tidak mengupload gambar atau tidak memenuhi persyaratan diatas maka akan menampilkan alert dibawah
+    if ($error === 4) {
+        echo "<script>alert('Pilih gambar terlebih dahulu!');</script>";
+        return false;
+    }
+
+    // format atau ekstensi yang diperbolehkan untuk upload gambar adalah
+    $extValid = ['jpg', 'jpeg', 'png'];
+    $ext = explode('.', $namaFile);
+    $ext = strtolower(end($ext));
+
+    // Jika format atau ekstensi bukan gambar maka akan menampilkan alert dibawah
+    if (!in_array($ext, $extValid)) {
+        echo "<script>alert('Yang anda upload bukanlah gambar!');</script>";
+        return false;
+    }
+
+    // Jika ukuran gambar lebih dari 3.000.000 byte maka akan menampilkan alert dibawah
+    if ($ukuranFile > 3000000) {
+        echo "<script>alert('Ukuran gambar anda terlalu besar!');</script>";
+        return false;
+    }
+
+    // nama gambar akan berubah angka acak/unik jika sudah berhasil tersimpan
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= '.';
+    $namaFileBaru .= $ext;
+
+    // memindahkan file ke dalam folde img dengan nama baru
+    move_uploaded_file($tmpName, 'asset/images/profile/' . $namaFileBaru);
 
     return $namaFileBaru;
 }

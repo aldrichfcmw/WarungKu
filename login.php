@@ -8,55 +8,24 @@ if (isset($_SESSION['login'])) {
 
 // Memanggil atau membutuhkan file function.php
 require 'function.php';
-
-if (isset($_POST['regis'])) {
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $password = md5($_POST["password"]);
-    $repassword = md5($_POST["repassword"]);
-
-    if($password==$repassword){
-        $sql= "select * from users where email=$email";
-        $hasil = mysqli_query($conn, $sql);
-        if(!$result ->num_rows > 0){
-            $sqlstr="insert into users (name,email,password) values ('$name','$email','$password')";
-            $hasil = mysqli_query($conn,$sqlstr);
-            if($hasil){
-                echo "<script>alert('Registrasi berhasil')</script>";  
-            } else {
-                echo "<script>alert('Terdapak Kesalahan')</script>"; 
-            }
-        } else {
-            echo "<script>alert('Email sudah dipakai')</script>"; 
-        }
-    } else {
-        echo "<script>alert('Password harus sama')</script>"; 
+if (isset($_POST['regis'])){
+    if (regis($_POST) > 0) {
+        echo "<script>
+            document.location.href = 'index';
+        </script>";
     }
 }
-
-if (isset($_POST['login'])) {
-	$email = $_POST['emaillogin'];
-	$password = md5($_POST['Passwordlogin']);
-    $result = mysqli_query($koneksi, "SELECT * FROM users WHERE email='$email' AND password='$password'");
-	$cek = mysqli_num_rows($result);
-    if ($cek > 0) {
-		$row = mysqli_fetch_assoc($result);
-        $_SESSION['login'] = true;
-        $_SESSION['id'] = $row['id'];
-		$_SESSION['name'] = $row['name'];
-        $_SESSION['title'] = "WarungKu";
-        $_SESSION['level'] = $row['level'];
-        $level=$row['level'];
-        if($level == 0){
-            header("Location: dagangan");
-        }
-        else{
-            header("Location: index");
-        }
-		
-	} else {
-		echo "<script>alert('Woops! Email Atau Password anda Salah.')</script>";
-	}
+if (isset($_POST['login'])){
+    if (login($_POST) > 0) {
+        echo "<script>
+            document.location.href = 'index';
+        </script>";
+    } else {
+        // Jika fungsi add dibawah dari 0/data tidak tertambah, maka munculkan alert dibawah
+        echo "<script>
+            alert('Item gagal ditambah');
+        </script>";
+    }
 }
 
 ?>
@@ -96,8 +65,8 @@ if (isset($_POST['login'])) {
                 <div class="inputBox"> 
                     <input id="name" type="text" name="name" placeholder="Name" required> 
                     <input id="email" type="text" name="email" placeholder="email" required> 
-                    <input id="pass" type="password" name="password" placeholder="Password" required>
-                    <input id="pass" type="password" placeholder="rePassword">
+                    <input id="password" type="password" name="password" placeholder="Password" required>
+                    <input id="repassword" type="password" name="repassword" placeholder="Re-Password">
                 </div> 
                 <input type="submit" name="regis" value="Registrasi">
             </form> 

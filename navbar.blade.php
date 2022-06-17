@@ -139,10 +139,15 @@
                         </a>
                     </div>                
                     <?php else :?>
+                        <?php
+                            $nama  = $_SESSION['name'];
+                            $table = mysqli_query($koneksi,"SELECT * FROM users WHERE name='$nama'");
+                            $item  = mysqli_fetch_array($table);
+                        ?>
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="img-profile rounded-circle"
-                                src="asset/images/profile/fotolaki.png">
+                                src="asset/images/profile/<?php echo $item["foto"];?>">
                         </a> 
                         <?php $admin=0;?>
                         <?php if($_SESSION['level'] == $admin){?>
