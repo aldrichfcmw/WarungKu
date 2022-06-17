@@ -8,8 +8,14 @@ $admin=0;
 // Memanggil atau membutuhkan file function.php
 require 'function.php';
 $id=$_SESSION['id'];
-$cart = query("SELECT * FROM keranjang where id_user=$id");
-
+$cart = mysqli_query($koneksi,"SELECT * FROM keranjang where id_user=$id");
+$pilih = mysqli_fetch_array($cart);
+$jumlah =mysqli_num_rows($cart);
+if($jumlah > 0){
+    $item = $pilih["harga"];
+} else {
+    $item = 0;
+}
 // delete task
 if (isset($_GET['pay_item'])){
     // Jika fungsi delete lebih dari 0/data tertambah, maka munculkan alert dibawah
@@ -20,16 +26,11 @@ if (isset($_GET['pay_item'])){
                         document.location.href = 'index';
                     </script>";
         } else {
-            // Jika fungsi delete dibawah dari 0/data tidak tertambah, maka munculkan alert dibawah
             echo "<script>
                     alert('Pembayaran gagal');
                 </script>";
         }
-    } else {
-        echo "<script>
-                    alert('Riwayat pembayaran gagal');
-                </script>";
-    }
+    } 
   }
 
 ?>
@@ -84,6 +85,17 @@ if (isset($_GET['pay_item'])){
                         <!-- navbar -->
                         <div class="col-sm-6 col-md-6 col-xs-12 bg-white">
                             <?php include "navbar.blade.php";?>
+
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <div class="m-2 font-weight-bold text-black text-center">
+                                        Total Pembayaran <br> Rp. <?php echo $item;?>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
+
                             <?php 
                                 $pilih = mysqli_query($koneksi,"SELECT * FROM keranjang where id_user=$id");
                                 $jumlah = mysqli_num_rows($pilih);
@@ -93,13 +105,13 @@ if (isset($_GET['pay_item'])){
                                 $payment = mysqli_query($koneksi,"SELECT * FROM metode_pembayaran ORDER BY metode");
                                 while ($row = mysqli_fetch_array($payment)) {
                                 ?>
-                                    <a class="" href="metodet?pay_item=<?= $id;?>" data-toggle="modal" data-target="#thankyouModal">
+                                    <a class="" href="" data-toggle="modal" data-target="#thankyouModal">
                                         <div class="col-sm-12 p-1">
                                             <div class="card border-left-primary shadow">
                                                 <div class="card-body">
                                                     <div class="row no-gutters align-items-center">
                                                         <div class="col mr-2">
-                                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $row['metode']; ?></div>
+                                                            <div class="h5 mb-0 text-gray-600"><?= $row['metode']; ?></div>
                                                         </div>
                                                         <div class="col-auto">
                                                             <img src="asset/images/icon/<?= $row['gambar']; ?>" width="50px" alt="">
@@ -158,7 +170,7 @@ if (isset($_GET['pay_item'])){
 
 
     <!-- cart Modal-->
-    <div class="modal fade" id="thankyouModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade text-dark" id="thankyouModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

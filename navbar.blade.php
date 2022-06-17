@@ -61,8 +61,9 @@
                             <h6 class="dropdown-header">
                                 Cart Center
                             </h6>
+                            <div class="dropdown-item btn-info text-center">Hanya 1 item PerTransaksi</div>
                             <?php while ( $keranjang = mysqli_fetch_array($kj)) { ?>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <a class="dropdown-item d-flex align-items-center" href="cart">
                                     <div class="mr-3">
                                         <img src="asset/images/produk/<?= $keranjang['gambar_barang']; ?>" width="50px" class="" alt=""/>
                                     </div>

@@ -9,6 +9,7 @@ $admin=0;
 require 'function.php';
 $id=$_SESSION['id'];
 $cart = query("SELECT * FROM keranjang where id_user=$id");
+
     
 // delete task
 if (isset($_GET['delete_item'])){
@@ -25,7 +26,20 @@ if (isset($_GET['delete_item'])){
                 alert('Item gagal dihapus');
             </script>";
     }
-  }
+}
+if (isset($_POST['rubah'])) {
+    if (ubahitem($_POST) > 0) {
+        echo "<script>
+                alert('Jumlah Item berhasil diubah!');
+                document.location.href = 'cart';
+            </script>";
+    } else {
+        // Jika fungsi tambah dari 0/data tidak tersimpan, maka munculkan alert dibawah
+        echo "<script>
+                alert('Jumlah Item gagal diubah!');
+            </script>";
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -84,38 +98,27 @@ if (isset($_GET['delete_item'])){
                         <div class="col-sm-6 col-md-6 col-xs-12 bg-white">
                             <?php include "navbar.blade.php";?>
 
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <div class="m-2 font-weight-bold text-danger text-center">
+                                        Hanya dapat melakukan 1 item pertransaksi !
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
                             <!-- DataTales Example -->
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3 d-flex justify-content-between">
+                                <div class="card-header py-3 d-flex">
                                     <div class="m-2 font-weight-bold text-primary">
                                         Data Cart Product
                                     </div>
-                                    <div class="text-right">
-                                        <a class=" btn btn-md btn-flat btn-primary mb-1" href="index">
-                                                <i class="fa fa-undo fa-sm fa-fw mr-2 text-white-400"></i>
-                                                Kembali
-                                            </a>
-                                        <!-- Nav Item - Alerts -->
-                                        <?php 
-                                            $pilih = mysqli_query($koneksi,"SELECT * FROM keranjang where id_user=$id");
-                                            $jumlah = mysqli_num_rows($pilih);
-                                        ?>
-                                        <?php if($jumlah > 0):?>
-                                            <a class=" btn btn-md btn-flat btn-success mb-1" href="#" data-toggle="modal" data-target="#cartModal">
-                                                <i class="fa fa-shopping-cart fa-sm fa-fw mr-2 text-white-400"></i>
-                                                Bayar
-                                            </a>
-                                        <?php else:  ?>
-                                            <a class=" btn btn-md btn-flat btn-secondary mb-1" href="#" data-toggle="modal" data-target="#cartModal2">
-                                                <i class="fa fa-shopping-cart fa-sm fa-fw mr-2 text-white-400"></i>
-                                                Bayar
-                                            </a>    
-                                        <?php endif; ?>
-                                    </div>
+                                    
+                                    
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <table class="table table-bordered text-center " id="dataTable" width="100%" cellspacing="0" >
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
@@ -126,18 +129,9 @@ if (isset($_GET['delete_item'])){
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Gambar</th>
-                                                    <th>Barang</th>
-                                                    <th>Jumlah</th>
-                                                    <th>Harga</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </tfoot>
+                                            
                                             <tbody>
-                                                <?php $no=1;?>
+                                                <?php $no=1;$total=0;$harga=0;?>
                                                 <?php foreach ($cart as $row) : ?>
                                                 
                                                 <tr>
@@ -147,22 +141,61 @@ if (isset($_GET['delete_item'])){
                                                     </td>
                                                     <td><?= $row['barang']; ?></td>
                                                     <td><?= $row['jumlah']; ?></td>
-                                                    <td><?= $row['harga']; ?></td>
+                                                    <td>Rp. <?= $row['harga']; ?></td>
                                                     <td>
+                                                        <a href="" class="btn btn-sm btn-flat btn-warning" data-toggle="modal" data-target="#<?= $row['kode_barang']; ?>">
+                                                            <i class='fas fa-fw fa-file'></i>
+                                                        </a>
                                                         <a href="cart?delete_item=<?= $row['id_keranjang']; ?>" 
                                                         class="btn btn-sm btn-flat btn-danger" onclick="return confirm('Hapus barang <?= $row['barang']; ?>?')">
-                                                        <i class='fas fa-fw fa-trash'></i>
+                                                            <i class='fas fa-fw fa-trash'></i>
                                                         </a>
                                                     </td>
                                                 </tr>
+                                                <?php 
+                                                    $total=$total+$row['jumlah'];
+                                                    $harga=$harga+$row['harga'];
+                                                ?>
                                                 <?php endforeach; ?>
                                             </tbody>
+
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="3"></th>
+                                                    <th><?php echo $total;?></th>
+                                                    <th>Rp. <?php echo $harga;?></th>
+                                                    <th>
+                                                    <?php if($jumlah == 1):?>
+                                                        <a class="btn btn-md btn-flat btn-success mb-1" href="" data-toggle="modal" data-target="#cartModal">
+                                                            <i class="fa fa-shopping-cart fa-sm fa-fw mr-2 text-white-400"></i>
+                                                            Bayar
+                                                        </a>
+                                                    <?php elseif($jumlah == 2):?>
+                                                        <button class="btn btn-md btn-flat btn-secondary mb-1 disabled" href="" data-toggle="modal" data-target="#cartModal2">
+                                                            <i class="fa fa-shopping-cart fa-sm fa-fw mr-2 text-white-400"></i>
+                                                            Bayar
+                                                        </button>    
+                                                    <?php else:  ?>
+                                                        <button class=" btn btn-md btn-flat btn-secondary mb-1 disbaled" href="#" data-toggle="modal" data-target="#cartModal3">
+                                                            <i class="fa fa-shopping-cart fa-sm fa-fw mr-2 text-white-400"></i>
+                                                            Bayar
+                                                        </button>    
+                                                    <?php endif; ?>
+                                                    </th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
-                                    
                                 </div>
                             </div>
-
+                            <div class="card shadow mb-4">
+                                <div class="card-body">
+                                    <a class=" btn btn-block btn-md btn-flat btn-primary mb-1" href="index">
+                                        <i class="fa fa-undo fa-sm fa-fw mr-2 text-white-400"></i>
+                                        Kembali
+                                    </a>
+                                </div>
+                            </div>                            
 
 
                             
@@ -215,7 +248,26 @@ if (isset($_GET['delete_item'])){
     </div>
 
     <!-- cart Modal-->
-    <div class="modal fade" id="cartModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade text-dark" id="cartModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Form Pembayaran</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">Mohon Maaf pembelian lebih dari 1 masih dalam tahap pengembangan</div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Kembali</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- cart Modal-->
+    <div class="modal fade text-dark" id="cartModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -232,6 +284,40 @@ if (isset($_GET['delete_item'])){
             </div>
         </div>
     </div>
+    
+    <?php 
+        $dagangan = mysqli_query($koneksi,"select * from keranjang where id_user=$id");
+        while ($barang = mysqli_fetch_array($dagangan)) {
+    ?>
+    <!-- cart Modal-->
+    <div class="modal fade text-dark" id="<?php echo $barang['kode_barang']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="" method="post" enctype="">
+                <div class="modal-header">
+                    <h5 class="modal-title " id="exampleModalLabel">Edit Jumlah</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body"><?php echo $barang['barang']; ?></div>
+                <div class="mb-3 col">
+                    <input class="form-control" type="hidden" name="id_keranjang" value="<?php echo $barang['id_keranjang']; ?>">
+                    Masukkan jumlah item
+                    <input class="form-control" type="text" name="jumlah" value="<?php echo $barang['jumlah']; ?>">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" type="submit" name="rubah" > 
+                        Next
+                </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
 
     <!-- Bootstrap core JavaScript-->
     <script src="asset/vendor/jquery/jquery.min.js"></script>
@@ -246,7 +332,7 @@ if (isset($_GET['delete_item'])){
     <!-- Page level plugins -->
     <script src="asset/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="asset/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    
+
 </body>
 
 </html>

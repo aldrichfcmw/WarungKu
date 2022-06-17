@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Jun 2022 pada 06.16
+-- Waktu pembuatan: 17 Jun 2022 pada 17.26
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 8.1.2
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `dagangan` (
   `id_barang` int(255) NOT NULL,
   `id_kategori` int(255) NOT NULL,
+  `kode_barang` text NOT NULL,
   `nama_barang` varchar(255) NOT NULL,
   `gambar_barang` varchar(255) NOT NULL,
   `deskripsi_barang` varchar(255) NOT NULL,
@@ -41,14 +42,14 @@ CREATE TABLE `dagangan` (
 -- Dumping data untuk tabel `dagangan`
 --
 
-INSERT INTO `dagangan` (`id_barang`, `id_kategori`, `nama_barang`, `gambar_barang`, `deskripsi_barang`, `jumlah_barang`, `harga_barang`) VALUES
-(1211, 121, 'Spotify FamPlan', '624fe326d2650.jpeg', 'Murah', 15, 17000),
-(1221, 122, 'PSN Rp 200.000', '624ff85a1a4f2.jpeg', 'Cepat', 10, 198000),
-(1231, 123, 'Robux 6000 fall', '624fe2ac05a01.jpg', 'Cepat', 100, 6000),
-(1241, 124, 'Genshin 60 Cristal', '624fe37d59a04.jpeg', 'Murah', 15, 11000),
-(1242, 124, 'Valorant', '624fef2188d75.jpeg', 'asdwasdwa', 10, 2500),
-(1251, 125, 'By.U 3 Gb', '624ff9143563d.png', 'Termurah', 5, 14000),
-(1271, 127, 'Steam IDR 60000', '624fe3b69713e.jpeg', 'Murah', 5, 60000);
+INSERT INTO `dagangan` (`id_barang`, `id_kategori`, `kode_barang`, `nama_barang`, `gambar_barang`, `deskripsi_barang`, `jumlah_barang`, `harga_barang`) VALUES
+(1211, 121, 'aabb', 'Spotify FamPlan', '624fe326d2650.jpeg', 'Murah', 15, 17000),
+(1221, 122, 'ccdd', 'PSN Rp 200.000', '624ff85a1a4f2.jpeg', 'Cepat', 10, 198000),
+(1231, 123, 'ddee', 'Robux 6000 fall', '624fe2ac05a01.jpg', 'Cepat', 100, 6000),
+(1241, 124, 'eeff', 'Genshin 60 Cristal', '624fe37d59a04.jpeg', 'Murah', 14, 11000),
+(1242, 124, 'ffgg', 'Valorant', '624fef2188d75.jpeg', 'asdwasdwa', 10, 2500),
+(1251, 125, 'gghh', 'By.U 3 Gb', '624ff9143563d.png', 'Termurah', 5, 14000),
+(1271, 127, 'hhii', 'Steam IDR 60000', '624fe3b69713e.jpeg', 'Murah', 11, 60000);
 
 -- --------------------------------------------------------
 
@@ -67,6 +68,7 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`id_kategori`, `icon`, `kategori`) VALUES
+(120, 'grid.png', 'All'),
 (121, 'apps.svg', 'Aplikasi'),
 (122, 'console.svg', 'Console Game'),
 (123, 'mobile.svg', 'Mobile Game'),
@@ -84,11 +86,19 @@ INSERT INTO `kategori` (`id_kategori`, `icon`, `kategori`) VALUES
 CREATE TABLE `keranjang` (
   `id_keranjang` int(255) NOT NULL,
   `id_user` int(255) NOT NULL,
+  `kode_barang` varchar(255) NOT NULL,
   `barang` varchar(255) NOT NULL,
   `jumlah` int(255) NOT NULL,
   `harga` int(255) NOT NULL,
   `gambar_barang` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `keranjang`
+--
+
+INSERT INTO `keranjang` (`id_keranjang`, `id_user`, `kode_barang`, `barang`, `jumlah`, `harga`, `gambar_barang`) VALUES
+(22, 1, 'eeff', 'Genshin 60 Cristal', 1, 11000, '624fe37d59a04.jpeg');
 
 -- --------------------------------------------------------
 
@@ -141,13 +151,8 @@ INSERT INTO `riwayat_pembayaran` (`id_bayar`, `list_barang`, `jumlah_barang`, `t
 (15912, 'Genshin 60 Cristal', 5, 55000),
 (15913, 'Robux 6000 fall', 7, 42000),
 (15914, 'Spotify FamPlan', 1, 17000),
-(15915, 'PSN Rp 200.000', 1, 198000),
-(15916, 'By.U 3 Gb', 1, 14000),
-(15917, '', 0, 0),
-(15918, 'By.U 3 Gb', 1, 14000),
-(15919, '', 0, 0),
-(15920, 'By.U 3 Gb', 1, 14000),
-(15921, '', 0, 0);
+(15915, 'Steam IDR 60000', 1, 60000),
+(15916, 'Steam IDR 60000', 1, 60000);
 
 -- --------------------------------------------------------
 
@@ -181,7 +186,8 @@ INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `foto`) VALUES
 --
 ALTER TABLE `dagangan`
   ADD PRIMARY KEY (`id_barang`),
-  ADD KEY `nama_barang` (`nama_barang`);
+  ADD KEY `nama_barang` (`nama_barang`),
+  ADD KEY `id_kategori` (`id_kategori`);
 
 --
 -- Indeks untuk tabel `kategori`
@@ -194,7 +200,8 @@ ALTER TABLE `kategori`
 -- Indeks untuk tabel `keranjang`
 --
 ALTER TABLE `keranjang`
-  ADD PRIMARY KEY (`id_keranjang`);
+  ADD PRIMARY KEY (`id_keranjang`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indeks untuk tabel `metode_pembayaran`
@@ -235,7 +242,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT untuk tabel `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id_keranjang` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_keranjang` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `metode_pembayaran`
@@ -247,13 +254,29 @@ ALTER TABLE `metode_pembayaran`
 -- AUTO_INCREMENT untuk tabel `riwayat_pembayaran`
 --
 ALTER TABLE `riwayat_pembayaran`
-  MODIFY `id_bayar` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15922;
+  MODIFY `id_bayar` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15923;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `dagangan`
+--
+ALTER TABLE `dagangan`
+  ADD CONSTRAINT `dagangan_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`);
+
+--
+-- Ketidakleluasaan untuk tabel `keranjang`
+--
+ALTER TABLE `keranjang`
+  ADD CONSTRAINT `keranjang_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -101,18 +101,21 @@ if (isset($_GET['add_item'])){
                                     $dagangan = mysqli_query($koneksi,"SELECT * FROM kategori ORDER BY id_kategori");
                                     while ($kategori = mysqli_fetch_array($dagangan)) {
                                     ?>
-                                    <div class="col-xl-4 col-md-3 mb-4">
-                                        <div class="card shadow text-center">
-                                            <div class="card-body">
-                                                <div class="row no-gutters">
-                                                    <div class="col mr-2">
-                                                        <img src="asset/images/icon/<?= $kategori['icon']; ?>" alt="" srcset=""><br>
-                                                        <div class="h6 mb-0 font-weight-bold text-gray-800"><?= $kategori['kategori']; ?></div>
+                                    <a href="index?id_kt=<?= $kategori['id_kategori']; ?>" class="col-xl-4 col-md-3 mb-4">
+                                        <div >
+                                            <div class="card shadow text-center">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters">
+                                                        <div class="col mr-2">
+                                                            <img src="asset/images/icon/<?= $kategori['icon']; ?>" alt="" srcset=""><br>
+                                                            <div class="h6 mb-0 font-weight-bold text-gray-800"><?= $kategori['kategori']; ?></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
+                                    
                                     <?php } ?>
                                 </div>
 
@@ -120,7 +123,16 @@ if (isset($_GET['add_item'])){
                             <h1 class="h3 mb-1 text-gray-800">Produk</h1>
                                 <div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 p-4">
                                     <?php 
-                                    $dagangan = mysqli_query($koneksi,"select * from dagangan order by nama_barang");
+                                        if(isset($_GET['id_kt'])){
+                                            $kt = $_GET['id_kt'];
+                                            if($kt==120){
+                                                $dagangan = mysqli_query($koneksi,"select * from dagangan order by nama_barang ");
+                                            }else if ($kt > 120){
+                                                $dagangan = mysqli_query($koneksi,"select * from dagangan where id_kategori=$kt order by nama_barang ");
+                                            }
+                                        } else{
+                                            $dagangan = mysqli_query($koneksi,"select * from dagangan order by nama_barang ");
+                                        }
                                     while ($barang = mysqli_fetch_array($dagangan)) {
                                     ?>
                                     <div class="col-xl-4 col-md-6 mb-4">

@@ -100,7 +100,9 @@ $id_br=$dagangan['id_barang'];
                                     <input type="text" name="id_br" class="form-control" value="<?php echo "$id_br" ?>">
                                     
                                     <label class="mt-4" for="">Nama Produk</label>
-                                        <input type="text" name="nama" class="form-control" value="<?= $dagangan['nama_barang'];?>">                
+                                        <input type="text" name="nama" class="form-control" value="<?= $dagangan['nama_barang'];?>">
+                                        <label class="mt-2" for="">Kode Produk</label>
+                                        <input type="text" name="kode" class="form-control" value="<?= $dagangan['kode_barang'];?>">                 
                                 </div>
                                 <div class="form-group mt-4">
                                     <h4>Informasi Produk</h4>

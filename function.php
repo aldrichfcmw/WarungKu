@@ -43,6 +43,7 @@ function tambah($data)
     // echo "<script>alert('$a $b $id')</script>"; 
     $id_barang = $id; 
     $nama_barang = htmlspecialchars($data['nama']);
+    $kode_barang = htmlspecialchars($data['kode']);
     $deskripsi_barang = htmlspecialchars($data['deskripsi']);
     $jumlah_barang = $data['jumlah'];
     $harga_barang = $data['harga'];
@@ -52,7 +53,7 @@ function tambah($data)
         return false;
     }
 
-    $sql = "INSERT INTO dagangan VALUES ('$id_barang','$id_kategori','$nama_barang','$gambar','$deskripsi_barang','$jumlah_barang','$harga_barang')";
+    $sql = "INSERT INTO dagangan VALUES ('$id_barang','$id_kategori','$kode_barang','$nama_barang','$gambar','$deskripsi_barang','$jumlah_barang','$harga_barang')";
 
     mysqli_query($koneksi, $sql);
 
@@ -70,10 +71,11 @@ function add($id_barang)
     // echo "<script>alert('$a $b $id')</script>";  
     $nama_barang = $pilih['nama_barang'];
     $jumlah_barang = 1;
+    $kode_barang = $pilih['kode_barang'];
     $harga_barang = $pilih['harga_barang'];
     $gambar=$pilih['gambar_barang'];
     $id_keranjang="";
-    $sql = "INSERT INTO keranjang VALUES ('$id_keranjang','$id_user','$nama_barang','$jumlah_barang','$harga_barang','$gambar')";
+    $sql = "INSERT INTO keranjang VALUES ('$id_keranjang','$id_user','$kode_barang','$nama_barang','$jumlah_barang','$harga_barang','$gambar')";
 
     mysqli_query($koneksi, $sql);
 
@@ -92,7 +94,7 @@ function delete($id_keranjang)
 function checkout($id)
 {
     global $koneksi;
-    $pilih = mysqli_query($koneksi, "SELECT * FROM riwayat_pembayaran order by id_bayar DESC LIMIT 1");
+    $pilih = mysqli_query($koneksi, "SELECT * FROM riwayat_pembayaran order by id_bayar DESC");
     $nilai = mysqli_fetch_array($pilih);
     $jumlah =mysqli_num_rows($pilih);
     if($jumlah > 0){
@@ -100,22 +102,29 @@ function checkout($id)
         $b = 1;
         $id2= $a + $b; 
     }
-    // echo "<script>alert('$a $b $id2')</script>";
-    $id_barang = $id2; 
-    $pilih2 = mysqli_query($koneksi, "SELECT * FROM keranjang where id_user=$id");
+    // echo "<script>alert('$a $b $id2')</script>"; 
+    $pilih2 = mysqli_query($koneksi, "SELECT * FROM keranjang WHERE id_user=$id");
     $item = mysqli_fetch_array($pilih2);
     $id_barang = $item['id_user'];
     $list_barang = $item['barang'];
     $jumlah_barang = $item['jumlah'];
     $harga_barang = $item['harga'];
+    $kode = $item['kode_barang'];
 
-
+    $pilih3 = mysqli_query($koneksi, "SELECT * FROM dagangan WHERE kode_barang='$kode'");
+    $barang = mysqli_fetch_array($pilih3);
+    $jml = $barang['jumlah_barang'];
+    $sisa = $jml-$jumlah_barang;
+    
     $sql = "INSERT INTO riwayat_pembayaran VALUES ('$id2','$list_barang','$jumlah_barang','$harga_barang')";
+    $sql2 = "UPDATE dagangan SET  jumlah_barang = '$sisa' WHERE kode_barang='$kode'";
 
     mysqli_query($koneksi, $sql);
+    mysqli_query($koneksi, $sql2);
 
     return mysqli_affected_rows($koneksi); 
 }
+
 
 // Membuat fungsi Hapus setelah pembelian
 function deleted($id)
@@ -146,6 +155,7 @@ function ubah($data)
     $id_barang = $data['id_br'];
     $nama_barang = htmlspecialchars($data['nama']);
     $deskripsi_barang = htmlspecialchars($data['deskripsi']);
+    $kode_barang = htmlspecialchars($data['kode']);
     $jumlah_barang = $data['jumlah'];
     $harga_barang = $data['harga'];
     $gambarLama = $data['gambarLama'];
@@ -157,7 +167,21 @@ function ubah($data)
     }
     unlink("asset/images/produk/".$gambarLama);
 
-    $sql = "UPDATE dagangan SET nama_barang = '$nama_barang', gambar_barang = '$gambar', deskripsi_barang = '$deskripsi_barang', jumlah_barang = '$jumlah_barang', harga_barang = '$harga_barang' WHERE id_barang = $id_barang";
+    $sql = "UPDATE dagangan SET nama_barang = '$nama_barang',kode_barang = '$kode_barang', gambar_barang = '$gambar', deskripsi_barang = '$deskripsi_barang', jumlah_barang = '$jumlah_barang', harga_barang = '$harga_barang' WHERE id_barang = $id_barang";
+
+    mysqli_query($koneksi, $sql);
+
+    return mysqli_affected_rows($koneksi);
+}
+
+// Membuat fungsi ubah
+function ubahitem($data)
+{
+    global $koneksi;
+    $id_keranjang=$data['id_keranjang'];
+    $jumlah = $data['jumlah'];
+
+    $sql = "UPDATE keranjang SET jumlah = '$jumlah' WHERE id_keranjang = $id_keranjang";
 
     mysqli_query($koneksi, $sql);
 

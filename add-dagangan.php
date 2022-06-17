@@ -91,8 +91,10 @@ if (isset($_POST['simpan'])) {
                                         <option value="<?= $row['id_kategori'];?>"><?= $row['id_kategori']; ?> - <?= $row['kategori']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
-                                    <label class="mt-2" for="">Nama Produk</label>
-                                        <input type="text" name="nama" class="form-control" required>                
+                                        <label class="mt-2" for="">Nama Produk</label>
+                                        <input type="text" name="nama" class="form-control" required>
+                                        <label class="mt-2" for="">Kode Produk</label>
+                                        <input type="text" name="kode" class="form-control" required>                   
                                 </div>
                                 <div class="form-group mt-2">
                                 <h1 class="h3 mb-2 text-gray-800">Informasi Product</h1>
