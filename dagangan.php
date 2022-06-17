@@ -15,9 +15,13 @@ $dagangan = mysqli_query($koneksi,"SELECT * FROM riwayat_pembayaran ORDER BY id_
 while($row = mysqli_fetch_array($dagangan)){
     $list_barang[] = $row['list_barang'];
     $jumlah_bayar[] = $row['total_bayar'];
-    $jumlah_pembelian[] = $row['jumlah_barang'];
 }
 $total=array_sum($jumlah_bayar);
+$item = mysqli_query($koneksi,"SELECT * FROM dagangan ORDER BY id_barang");
+while($row = mysqli_fetch_array($item)){
+    $barang[] = $row['nama_barang'];
+    $jumlah_item[] = $row['jumlah_barang'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -290,10 +294,10 @@ $total=array_sum($jumlah_bayar);
 		var myChart = new Chart(ctx, {
 			type: 'pie',
 			data: {
-				labels: <?php echo json_encode($list_barang); ?>,
+				labels: <?php echo json_encode($barang); ?>,
 				datasets: [{
-					label: 'Grafik Peminat',
-					data: <?php echo json_encode($jumlah_pembelian); ?>,
+					label: 'Grafik Jumlah Barang',
+					data: <?php echo json_encode($jumlah_item); ?>,
 					backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
 					'rgba(54, 162, 235, 0.2)',
