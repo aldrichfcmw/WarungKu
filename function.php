@@ -32,7 +32,7 @@ function regis($data)
     $password = md5($data["password"]);
     $repassword = md5($data["repassword"]);
     $level=1;
-    $gambar="fotolaki.png"
+    $gambar="fotolaki.png";
 
     if($password==$repassword){
         $sql= "select * from users where email='$email'";
