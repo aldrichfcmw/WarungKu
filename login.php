@@ -97,7 +97,7 @@ if (isset($_POST['login'])) {
                     <input id="name" type="text" name="name" placeholder="Name" required> 
                     <input id="email" type="text" name="email" placeholder="email" required> 
                     <input id="pass" type="password" name="password" placeholder="Password" required>
-                    <input id="pass" type="password" placeholder="Re-Password">
+                    <input id="pass" type="password" placeholder="rePassword">
                 </div> 
                 <input type="submit" name="regis" value="Registrasi">
             </form> 
