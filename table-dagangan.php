@@ -6,7 +6,10 @@
         header('location:login');
         exit;
     }
-
+    if (isset($_SESSION['id'])==1) {
+        header('location:index');
+        exit;
+    }
     // Memanggil atau membutuhkan file function.php
     require 'function.php';
 
