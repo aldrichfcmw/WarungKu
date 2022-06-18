@@ -6,7 +6,7 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 if (isset($_SESSION['id'])==1) {
-    header('location:index');
+    header('location:<?php echo $url?>');
     exit;
 }
 // Menampilkan semua data dari table siswa berdasarkan nis secara Descending

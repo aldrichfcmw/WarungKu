@@ -3,6 +3,7 @@
 $koneksi = mysqli_connect("localhost", "root", "", "warungku");
 //$koneksi = mysqli_connect('localhost','mytelkom_admin','telkomsanskuy','mytelkom_warungku');
 $home="index";
+$url="https://warungku.mytelkom.xyz/"
 
 // membuat fungsi query dalam bentuk array
 function query($query)
