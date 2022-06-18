@@ -6,6 +6,12 @@ if (!isset($_SESSION['login'])) {
     header('location:login');
     exit;
 }
+if (isset($_SESSION['id'])==1) {
+    echo "<script>
+        document.location.href = 'index';
+        </script>";
+    exit;
+}
 
 // Memanggil atau membutuhkan file function.php
 require 'function.php';

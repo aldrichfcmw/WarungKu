@@ -1,13 +1,4 @@
 
-<?php 
-$url="https://warungku.mytelkom.xyz/";
-if (isset($_SESSION['id'])==1) {
-    echo "<script>
-        document.location.href = '$url';
-        </script>";
-    exit;
-}
-?>
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 sticky-top shadow">
 
