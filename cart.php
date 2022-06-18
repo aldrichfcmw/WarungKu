@@ -304,6 +304,7 @@ if (isset($_POST['rubah'])) {
                 <div class="modal-body"><?php echo $barang['barang']; ?></div>
                 <div class="mb-3 col">
                     <input class="form-control" type="hidden" name="id_keranjang" value="<?php echo $barang['id_keranjang']; ?>">
+                    <input class="form-control" type="hidden" name="harga" value="<?php echo $barang['harga']; ?>">
                     Masukkan jumlah item
                     <input class="form-control" type="text" name="jumlah" value="<?php echo $barang['jumlah']; ?>">
                 </div>

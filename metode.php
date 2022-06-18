@@ -8,14 +8,6 @@ $admin=0;
 // Memanggil atau membutuhkan file function.php
 require 'function.php';
 $id=$_SESSION['id'];
-$cart = mysqli_query($koneksi,"SELECT * FROM keranjang where id_user=$id");
-$pilih = mysqli_fetch_array($cart);
-$jumlah =mysqli_num_rows($cart);
-if($jumlah > 0){
-    $item = $pilih["harga"];
-} else {
-    $item = 0;
-}
 // delete task
 if (isset($_GET['pay_item'])){
     // Jika fungsi delete lebih dari 0/data tertambah, maka munculkan alert dibawah
@@ -89,17 +81,17 @@ if (isset($_GET['pay_item'])){
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <div class="m-2 font-weight-bold text-black text-center">
-                                        Total Pembayaran <br> Rp. <?php echo $item;?>
-                                    </div>
-                                    
-                                    
+                                        <?php $cart = mysqli_query($koneksi,"SELECT * FROM keranjang where id_user=$id");
+                                        $pilih = mysqli_fetch_array($cart);
+                                        $jumlah = mysqli_num_rows($cart);?>
+                                        <?php if ($jumlah > 0):?>                                        
+                                            Total Pembayaran <br> Rp.
+                                        <?php echo $pilih['harga']; else : ?>
+                                            Total Pembayaran Rp. 0
+                                        <?php endif ?>
+                                    </div>  
                                 </div>
                             </div>
-
-                            <?php 
-                                $pilih = mysqli_query($koneksi,"SELECT * FROM keranjang where id_user=$id");
-                                $jumlah = mysqli_num_rows($pilih);
-                            ?>
                             <?php if($jumlah > 0):?>
                                 <?php 
                                 $payment = mysqli_query($koneksi,"SELECT * FROM metode_pembayaran ORDER BY metode");

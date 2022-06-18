@@ -242,8 +242,10 @@ function ubahitem($data)
     global $koneksi;
     $id_keranjang=$data['id_keranjang'];
     $jumlah = $data['jumlah'];
+    $harga = $data['harga'];
+    $hargabaru = $harga*$jumlah;
 
-    $sql = "UPDATE keranjang SET jumlah = '$jumlah' WHERE id_keranjang = $id_keranjang";
+    $sql = "UPDATE keranjang SET jumlah = '$jumlah',harga = '$hargabaru' WHERE id_keranjang = $id_keranjang";
 
     mysqli_query($koneksi, $sql);
 
