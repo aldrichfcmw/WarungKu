@@ -36,13 +36,13 @@ function regis($data)
     if($password==$repassword){
         $sql= "select * from users where email='$email'";
         $hasil = mysqli_query($koneksi, $sql);
-        if(!$result ->num_rows > 0){
+        if(!$result -> num_rows > 0){
             $sql = "INSERT INTO users (level,name,email,password,foto) values ('$level','$name','$email','$password','$gambar')";
             $hasil = mysqli_query($koneksi, $sql);
             if($hasil){
                 echo "<script>alert('Registrasi berhasil')</script>";  
             } else {
-                echo "<script>alert('Terdapak Kesalahan')</script>"; 
+                echo "<script>alert('Terdapat Kesalahan')</script>"; 
             }
         } else {
             echo "<script>alert('Email sudah dipakai')</script>"; 

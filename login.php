@@ -20,12 +20,7 @@ if (isset($_POST['login'])){
         echo "<script>
             document.location.href = 'index';
         </script>";
-    } else {
-        // Jika fungsi add dibawah dari 0/data tidak tertambah, maka munculkan alert dibawah
-        echo "<script>
-            alert('Item gagal ditambah');
-        </script>";
-    }
+    } 
 }
 
 ?>

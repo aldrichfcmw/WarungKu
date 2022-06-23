@@ -5,12 +5,7 @@ if (!isset($_SESSION['login'])) {
     header('location:login');
     exit;
 }
-if (isset($_SESSION['id'])==1) {
-    echo "<script>
-        document.location.href = 'index';
-        </script>";
-    exit;
-}
+
 // Menampilkan semua data dari table siswa berdasarkan nis secara Descending
 $item = query("SELECT * FROM dagangan ORDER BY id_barang DESC");
 
